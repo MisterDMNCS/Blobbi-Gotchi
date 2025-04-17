@@ -4,6 +4,12 @@ import { startActivity } from "../logic/actions";
 import { startGameLoop } from "../logic/controller";
 import { debugLog } from "../utils/debugLog";
 import { State } from "../types/types";
+import StatusOverview from "./StatusOverview";
+import MenuOverlay from "./MenuOverlay";
+import { addActivityToHistory } from "../logic/activityHistory";
+import { effectIcons } from "../utils/effectIcons";
+
+
 
 const MainScene = () => {
   const [state, setState] = useState<State | null>(null);
@@ -23,8 +29,39 @@ const MainScene = () => {
   const triggerRandomActivity = (category: string) => {
     debugLog(state?.settings, "triggerRandomActivity", category);
     const updatedState = startActivity(category, state!);
-    if (updatedState) setState(updatedState);
+    if (!updatedState) return;
+  
+    // Extract last activity info from updatedState
+    const { lastActivityEmoji, lastActivityTitle, lastActivityEffects } = updatedState;
+  
+    // Skip if data missing
+    if (!lastActivityEmoji || !lastActivityTitle || !lastActivityEffects) return;
+  
+    // Build effects array for history
+    const effects = Object.entries(lastActivityEffects).map(([key, value]) => ({
+      icon: effectIcons[key] ?? "❓",
+      value
+    }));
+  
+    // Timestamp
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  
+    // Save to history
+    addActivityToHistory(
+      {
+        timestamp: timeString,
+        emoji: lastActivityEmoji,
+        title: lastActivityTitle,
+        effects
+      },
+      state.settings
+    );
+    
+  
+    setState(updatedState);
   };
+  
 
   if (!state) return <div className="text-center p-4">Lade Blobbi...</div>;
 
@@ -32,17 +69,7 @@ const MainScene = () => {
     <div className="flex flex-col h-screen w-full bg-gradient-to-b from-blue-100 to-blue-300">
       {/* 🔝 Top bar */}
       <div className="flex flex-col gap-1 text-sm mb-4 px-4">
-        <div className="text-xl font-bold">{state.name}</div>
-
-        <div className="flex flex-wrap gap-x-4 gap-y-1 font-semibold">
-          <div>🍔 {state.hunger}%</div>
-          <div>⚡ {state.energy}%</div>
-          <div>😄 {state.mood}%</div>
-          <div>🛁 {state.hygiene}%</div>
-          <div>⭐ Lv {state.level}</div>
-          <div>📈 XP: {state.xp}</div>
-          <div>⏳ {state.ageInHours}h</div>
-        </div>
+        <StatusOverview state={state} />
       </div>
 
       {/* 🧍 Avatar */}
@@ -89,10 +116,7 @@ const MainScene = () => {
         >
           🎮
         </button>
-        <button
-          onClick={() => setShowMenu(true)}
-          className="text-3xl p-2 bg-gray-400 rounded-full"
-        >
+        <button onClick={() => setShowMenu(true)} className="text-3xl p-2">
           ☰
         </button>
       </div>
@@ -104,36 +128,9 @@ const MainScene = () => {
         </div>
       )}
 
-      {/* 📋 Mockup menu */}
+      {/* 📋 Expanded menu */}
       {showMenu && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-xl shadow-lg text-center max-w-sm w-full">
-            <h2 className="text-xl font-bold mb-4">🛠️ Menü</h2>
-
-            <div className="mb-4">
-              <label
-                htmlFor="nameInput"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Name ändern
-              </label>
-              <input
-                id="nameInput"
-                type="text"
-                value={state.name}
-                onChange={(e) => setState({ ...state, name: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded"
-              />
-            </div>
-
-            <button
-              onClick={() => setShowMenu(false)}
-              className="mt-4 px-4 py-2 bg-purple-500 text-white rounded"
-            >
-              Schließen
-            </button>
-          </div>
-        </div>
+        <MenuOverlay state={state} setState={setState} onClose={() => setShowMenu(false)} />
       )}
     </div>
   );

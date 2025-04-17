@@ -52,3 +52,10 @@ export interface State {
   activities: ActivityMap;
   settings: Settings;
 }
+
+export interface ActivityHistoryEntry {
+  timestamp: string; // e.g. "14:32"
+  emoji: string;     // e.g. "🍔"
+  title: string;     // e.g. "Burger"
+  effects: { icon: string; value: number }[];
+}

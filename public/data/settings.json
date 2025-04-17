@@ -22,7 +22,14 @@
       "mood": "Launeverlust pro Blobbi-Stunde"
     },
   
-    "debugLogs": false,
-    "_debugLogs_info": "Schaltet Debugging-Logs (console.log) ein oder aus"
+    "debugLogs": true,
+    "_debugLogs_info": "Schaltet Debugging-Logs (console.log) ein oder aus",
+
+    "maxHistoryEntries": 50,
+    "_maxHistoryEntries_info": "Maximale Anzahl gespeicherter Aktivitäten im Verlauf",
+
+    "activityHistoryEnabled": true,
+    "_activityHistoryEnabled_info": "Aktiviert oder deaktiviert die Speicherung der Aktivitätenhistorie"
+
   }
   
