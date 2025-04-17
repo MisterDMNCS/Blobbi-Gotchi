@@ -1,21 +1,11 @@
 import { State, Activity } from "../types/types";
 import { debugLog } from "../utils/debugLog";
+// import { findActivity } from "./controller"; // Removed as findActivity is defined locally
 
 // 🔄 Numeric keys in State that can be affected by activity effects
 const numericStateKeys: (keyof State)[] = [
-  "hunger",
-  "energy",
-  "mood",
-  "hygiene",
-  "knowledge",
-  "fitness",
-  "social",
-  "money",
-  "adventure",
-  "xp",
-  "ageInHours",
-  "gameSpeed",
-  "level",
+  "hunger", "energy", "mood", "hygiene",
+  "fitness", "health", "xp"
 ];
 
 // 😄 Choose an emoji based on state
@@ -50,44 +40,55 @@ export function findActivity(
 }
 
 // 🎯 Start a random activity from a category
-export function startActivity(category: string, state: State): State {
+export function startActivity(
+  category: string,
+  state: State
+): {
+  newState: State;
+  activityEmoji: string;
+  activityTitle: string;
+  activityEffects: Record<string, number>;
+} | null {
   debugLog(state.settings, "startActivity");
 
   const candidates = findActivity(category, state);
-  if (candidates.length === 0) {
-    console.warn("No matching activity found for:", category);
-    return state;
-  }
+  if (candidates.length === 0) return null;
 
   const [emoji, activity] =
     candidates[Math.floor(Math.random() * candidates.length)];
+
   const newState: State = { ...state };
 
-  for (const key in activity.effects || {}) {
+  for (const key in activity.effects) {
     const typedKey = key as keyof State;
-
-    if (numericStateKeys.includes(typedKey)) {
-      const value = newState[typedKey];
-      const effectValue = activity.effects[key];
-
-      if (typeof value === "number" && typeof effectValue === "number") {
-        (newState as any)[typedKey] = Math.max(
-          0,
-          Math.min(100, value + effectValue)
-        );
-      }
+  
+    if (
+      numericStateKeys.includes(typedKey) &&
+      typeof newState[typedKey] === "number" &&
+      typeof activity.effects[key] === "number"
+    ) {
+      const current = newState[typedKey] as number;
+      const effect = activity.effects[key] as number;
+      (newState as any)[typedKey] = Math.min(100, Math.max(0, current + effect));
+    } else {
+      console.warn("⚠️ Ungültiger Effektwert:", key, activity.effects[key]);
     }
   }
+  
 
   newState.activityEmoji = emoji;
   newState.currentActivity = activity.title;
-  const rawDescription = randomDescription(activity.descriptions);
-  newState.currentActivityDescription = rawDescription.replace(
+  newState.currentActivityDescription = randomDescription(activity.descriptions).replace(
     "{blobbiName}",
     newState.name
   );
 
-  return newState;
+  return {
+    newState,
+    activityEmoji: emoji,
+    activityTitle: activity.title,
+    activityEffects: activity.effects
+  };
 }
 
 // 🚫 Check if state allows this activity

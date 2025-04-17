@@ -9,8 +9,6 @@ import MenuOverlay from "./MenuOverlay";
 import { addActivityToHistory } from "../logic/activityHistory";
 import { effectIcons } from "../utils/effectIcons";
 
-
-
 const MainScene = () => {
   const [state, setState] = useState<State | null>(null);
   const [showCheats] = useState(false);
@@ -22,48 +20,46 @@ const MainScene = () => {
 
   useEffect(() => {
     if (!state) return;
-    const interval = startGameLoop(state, setState);
+    const interval = startGameLoop(state as State, setState as React.Dispatch<React.SetStateAction<State>>);
     return () => clearInterval(interval);
   }, [state?.gameSpeed]);
 
   const triggerRandomActivity = (category: string) => {
     debugLog(state?.settings, "triggerRandomActivity", category);
-    const updatedState = startActivity(category, state!);
-    if (!updatedState) return;
-  
-    // Extract last activity info from updatedState
-    const { lastActivityEmoji, lastActivityTitle, lastActivityEffects } = updatedState;
-  
-    // Skip if data missing
-    if (!lastActivityEmoji || !lastActivityTitle || !lastActivityEffects) return;
-  
-    // Build effects array for history
-    const effects = Object.entries(lastActivityEffects).map(([key, value]) => ({
+
+    const result = startActivity(category, state!);
+    if (!result) return;
+
+    const { newState, activityEmoji, activityTitle, activityEffects } = result;
+
+    const effects = Object.entries(activityEffects).map(([key, value]) => ({
       icon: effectIcons[key] ?? "❓",
       value
     }));
-  
-    // Timestamp
-    const now = new Date();
-    const timeString = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  
-    // Save to history
-    addActivityToHistory(
-      {
-        timestamp: timeString,
-        emoji: lastActivityEmoji,
-        title: lastActivityTitle,
-        effects
-      },
-      state.settings
-    );
-    
-  
-    setState(updatedState);
-  };
-  
 
-  if (!state) return <div className="text-center p-4">Lade Blobbi...</div>;
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+    if (state?.settings) {
+      addActivityToHistory(
+        {
+          timestamp: timeString,
+          emoji: activityEmoji,
+          title: activityTitle,
+          effects
+        },
+        state.settings
+      );
+    }
+
+    setState(newState);
+  };
+
+  if (!state)
+    return <div className="text-center p-4">Lade Blobbi...</div>;
 
   return (
     <div className="flex flex-col h-screen w-full bg-gradient-to-b from-blue-100 to-blue-300">
@@ -84,8 +80,7 @@ const MainScene = () => {
             </div>
           )}
         </div>
-        <div className="h-4" /> {/* 🆕 Freiraum zwischen Emoji und Titel */}
-        {/* Title & description */}
+        <div className="h-4" />
         <div className="text-lg font-bold text-center">
           {state.currentActivity ?? "?"}
         </div>
@@ -128,9 +123,13 @@ const MainScene = () => {
         </div>
       )}
 
-      {/* 📋 Expanded menu */}
-      {showMenu && (
-        <MenuOverlay state={state} setState={setState} onClose={() => setShowMenu(false)} />
+      {/* 📋 Menu overlay */}
+      {showMenu && state && (
+        <MenuOverlay
+          state={state}
+          setState={setState as React.Dispatch<React.SetStateAction<State>>}
+          onClose={() => setShowMenu(false)}
+        />
       )}
     </div>
   );

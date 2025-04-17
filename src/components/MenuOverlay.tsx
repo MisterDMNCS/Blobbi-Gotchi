@@ -38,6 +38,7 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
         {/* 📜 Activity History */}
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-2">Letzte Aktivitäten</h3>
+
           {history.length === 0 ? (
             <div className="text-sm text-gray-500">
               Noch keine Aktivitäten gespeichert.
@@ -48,26 +49,25 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
                 <tr className="bg-gray-100">
                   <th className="text-left p-2">🕒</th>
                   <th className="text-left p-2">Aktivität</th>
-                  <th className="text-left p-2">Effekte</th>
                 </tr>
               </thead>
               <tbody>
                 {history.map((entry, index) => (
                   <tr key={index} className="border-t">
-                    <td className="p-2 align-top">{entry.timestamp}</td>
+                    <td className="p-2 align-top text-nowrap">{entry.timestamp}</td>
                     <td className="p-2 align-top">
-                      {entry.emoji} {entry.title}
-                    </td>
-                    <td className="p-2 align-top">
-                      {entry.effects.map((eff, i) => (
-                        <span
-                          key={i}
-                          className="inline-block mr-2 whitespace-nowrap"
-                        >
-                          {eff.icon} {eff.value > 0 ? "+" : ""}
-                          {eff.value}
-                        </span>
-                      ))}
+                      <div>{entry.emoji} {entry.title}</div>
+                      <div className="mt-1 text-gray-600 text-xs">
+                        {entry.effects.map((eff, i) => (
+                          <span
+                            key={i}
+                            className="inline-block mr-2 whitespace-nowrap"
+                          >
+                            {eff.icon} {eff.value > 0 ? "+" : ""}
+                            {eff.value}
+                          </span>
+                        ))}
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -75,6 +75,7 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
             </table>
           )}
         </div>
+
 
         {/* 🛠️ Options Menu */}
         <div className="space-y-6">

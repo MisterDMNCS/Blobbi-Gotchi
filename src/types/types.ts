@@ -36,6 +36,7 @@ export interface State {
   social: number;
   money: number;
   adventure: number;
+  health: number;
 
   ageInHours: number;
   level: number;
