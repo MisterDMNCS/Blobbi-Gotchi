@@ -1,0 +1,83 @@
+{
+    "🍕": {
+      "title": "Pizza",
+      "category": "food",
+      "requiredXpLevel": 1,
+      "effects": {
+        "hunger": 25,
+        "energy": 5,
+        "mood": 5,
+        "xp": 3
+      },
+      "descriptions": [
+        "{blobbiName} snackt Pizza, bester Tag ever!",
+        "Pizza-Party bei {blobbiName} zu Hause!",
+        "{blobbiName} gönnt sich ne große Pizza!"
+      ]
+    },
+    "🍔": {
+      "title": "Burger",
+      "category": "food",
+      "requiredXpLevel": 2,
+      "effects": {
+        "hunger": 30,
+        "energy": 5,
+        "mood": 10,
+        "xp": 4
+      },
+      "descriptions": [
+        "{blobbiName} gönnt sich den Mega-Burger!",
+        "Fetter Burger landet bei {blobbiName}!",
+        "{blobbiName} liebt fettiges Fast Food!"
+      ]
+    },
+    "🍩": {
+      "title": "Donut",
+      "category": "food",
+      "requiredXpLevel": 2,
+      "effects": {
+        "hunger": 5,
+        "energy": 15,
+        "mood": 10,
+        "xp": 3
+      },
+      "descriptions": [
+        "Zuckerflash: Donut-Power für {blobbiName}!",
+        "{blobbiName} snackt nen bunten Donut!",
+        "{blobbiName} liebt Donuts, so süß!"
+      ]
+    },
+    "🍎": {
+      "title": "Apfel",
+      "category": "food",
+      "requiredXpLevel": 1,
+      "effects": {
+        "hunger": 10,
+        "energy": 5,
+        "mood": 2,
+        "xp": 2
+      },
+      "descriptions": [
+        "An apple a day – {blobbiName} ist dabei!",
+        "{blobbiName} mag’s knackig – Apfel-Time!",
+        "Gesund snacken mit {blobbiName}!"
+      ]
+    },
+    "🍫": {
+      "title": "Schokolade",
+      "category": "food",
+      "requiredXpLevel": 2,
+      "effects": {
+        "hunger": 5,
+        "energy": 15,
+        "mood": 10,
+        "xp": 3
+      },
+      "descriptions": [
+        "{blobbiName} schmilzt dahin – Schoki-Time!",
+        "Schokoliebe pur bei {blobbiName}!",
+        "{blobbiName} snackt wie ne Schokotafel!"
+      ]
+    }
+  }
+  

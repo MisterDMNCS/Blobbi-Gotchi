@@ -1,0 +1,105 @@
+{
+    "🎮": {
+      "title": "Zocken",
+      "category": "entertainment",
+      "requiredXpLevel": 1,
+      "avoidIf": {
+        "energy": "<20",
+        "hunger": "<20"
+      },
+      "effects": {
+        "mood": 20,
+        "hunger": -5,
+        "energy": -10,
+        "xp": 4
+      },
+      "descriptions": [
+        "{blobbiName} spielt bis der Controller glüht!",
+        "Level-Up für {blobbiName} – und wie!",
+        "{blobbiName} besiegt den Endboss mit verbundenen Augen!"
+      ]
+    },
+    "⚽️": {
+      "title": "Fussball",
+      "category": "entertainment",
+      "requiredXpLevel": 1,
+      "avoidIf": {
+        "energy": "<30",
+        "hunger": "<25"
+      },
+      "effects": {
+        "mood": 25,
+        "hunger": -10,
+        "energy": -20,
+        "xp": 5
+      },
+      "descriptions": [
+        "{blobbiName} kickt wie Messi!",
+        "Fußballprofi {blobbiName} am Start!",
+        "{blobbiName} trainiert für die WM!"
+      ]
+    },
+    "🎸": {
+      "title": "Luftgitarre",
+      "category": "entertainment",
+      "requiredXpLevel": 2,
+      "avoidIf": {
+        "energy": "<20",
+        "mood": "<30"
+      },
+      "effects": {
+        "mood": 20,
+        "hunger": -4,
+        "energy": -6,
+        "xp": 3
+      },
+      "descriptions": [
+        "{blobbiName} rockt härter als eine Kartoffel im Mixer!",
+        "Luftgitarren-Konzert: Eintritt frei, Chaos garantiert!",
+        "Achtung, {blobbiName} spielt Solos, die man nur fühlen, nicht hören kann!"
+      ]
+    },
+    "📖": {
+      "title": "Hausaufgaben",
+      "category": "entertainment",
+      "requiredXpLevel": 2,
+      "avoidIf": {
+        "energy": "<30",
+        "mood": "<40"
+      },
+      "effects": {
+        "mood": 10,
+        "hunger": -3,
+        "energy": -5,
+        "xp": 3
+      },
+      "descriptions": [
+        "{blobbiName} schreibt heute mit beiden Händen gleichzeitig – Lehrer verwirren inklusive!",
+        "Mathemonster incoming: {blobbiName} macht sie fertig!",
+        "{blobbiName} rechnet schneller, als sein Taschenrechner explodieren kann!",
+        "{blobbiName} lernt 37 neue Wörter – und erfindet direkt 5 eigene!",
+        "Wissen ist Macht – und {blobbiName} fühlt sich heute wie ein Superheld."
+      ]
+    },
+    "🎭": {
+      "title": "Theater",
+      "category": "entertainment",
+      "requiredXpLevel": 2,
+      "avoidIf": {
+        "mood": "<30",
+        "energy": "<30"
+      },
+      "effects": {
+        "mood": 18,
+        "hunger": -3,
+        "energy": -5,
+        "xp": 3
+      },
+      "descriptions": [
+        "Drama-King {blobbiName}: jede Szene endet mit Chaos!",
+        "Vorsicht, heute spielt {blobbiName} Romeo und Julia gleichzeitig!",
+        "Bühnen-Star {blobbiName}: Kein Drehbuch ist vor ihm sicher!"
+      ]
+    }
+  }
+  

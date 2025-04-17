@@ -1,0 +1,28 @@
+{
+    "gameSpeed": 15,
+    "_gameSpeed_info": "Echtzeit-Sekunden pro Blobbi-Stunde (Tick-Dauer)",
+  
+    "selfActivityProbability": 0.3,
+    "_selfActivityProbability_info": "Wahrscheinlichkeit, dass Blobbi selbstständig eine Aktivität auswählt (0-1)",
+  
+    "startLevel": 1,
+    "_startLevel_info": "Level, bei dem Blobbi startet",
+  
+    "xpPerLevel": 100,
+    "_xpPerLevel_info": "XP-Anforderung pro Levelaufstieg",
+  
+    "decayPerHour": {
+      "hunger": 2,
+      "energy": 2,
+      "mood": 1
+    },
+    "_decayPerHour_info": {
+      "hunger": "Blobbi verliert pro Blobbi-Stunde Hungerpunkte",
+      "energy": "Energieverbrauch pro Blobbi-Stunde",
+      "mood": "Launeverlust pro Blobbi-Stunde"
+    },
+  
+    "debugLogs": false,
+    "_debugLogs_info": "Schaltet Debugging-Logs (console.log) ein oder aus"
+  }
+  

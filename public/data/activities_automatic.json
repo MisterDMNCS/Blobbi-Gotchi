@@ -1,0 +1,51 @@
+{
+    "🛌": {
+      "title": "Schlafen",
+      "category": "automatisch",
+      "requiredXpLevel": 1,
+      "effects": {
+        "hunger": -5,
+        "energie": 40,
+        "laune": 5,
+        "xp": 2
+      },
+      "descriptions": [
+        "{blobbiName} rollt sich in die Decke wie ein Burrito!",
+        "Schlafenszeit: {blobbiName} sagt allen Gute Nacht!",
+        "{blobbiName} schnarcht im Takt seiner Lieblingsmusik!"
+      ]
+    },
+    "💤": {
+      "title": "Nickerchen",
+      "category": "automatisch",
+      "requiredXpLevel": 1,
+      "effects": {
+        "hunger": -2,
+        "energie": 20,
+        "laune": 2,
+        "xp": 1
+      },
+      "descriptions": [
+        "{blobbiName} gönnt sich ein Turbo-Nap!",
+        "Während {blobbiName} döst, tanzen die Gedanken Cha-Cha!",
+        "Mini-Schlaf, Maxi-Wirkung – {blobbiName} ist bereit!"
+      ]
+    },
+    "💭": {
+      "title": "Tagträumen",
+      "category": "automatisch",
+      "requiredXpLevel": 2,
+      "effects": {
+        "hunger": -1,
+        "energie": 10,
+        "laune": 10,
+        "xp": 1
+      },
+      "descriptions": [
+        "{blobbiName} stellt sich vor, wie er auf einem Einhorn durch Pudding galoppiert.",
+        "In {blobbiName}s Kopf läuft gerade der beste Film aller Zeiten.",
+        "{blobbiName} reist in Gedanken durchs Süßigkeitenuniversum!"
+      ]
+    }
+  }
+  

@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 😄 Emoji styles for avatar and activity */
+.emoji-state {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+    "Twemoji Mozilla", sans-serif;
+  font-size: 10rem;
+  line-height: 1;
+  display: inline-block;
+}
+
+.emoji-activity {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+    "Twemoji Mozilla", sans-serif;
+  font-size: 2.5rem;
+  line-height: 1;
+  display: inline-block;
+}
