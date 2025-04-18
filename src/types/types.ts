@@ -1,29 +1,45 @@
 // src/types/types.ts
 
-// 🧩 Describes a single activity Blobbi can perform
+// 🔒 Erlaubte Felder, die durch Aktivitäten beeinflusst werden dürfen
+export type StateEffectField =
+  | "hunger"
+  | "energy"
+  | "mood"
+  | "hygiene"
+  | "knowledge"
+  | "fitness"
+  | "social"
+  | "money"
+  | "adventure"
+  | "health"
+  | "xp";
+
+// 🧩 Eine einzelne Aktivität, die Blobbi ausführen kann
 export interface Activity {
-  title: string; // e.g. "Burger"
-  category: string; // e.g. "food", "hygiene", ...
-  requiredXpLevel: number;
-  effects: Record<string, number>; // e.g. { hunger: 20, mood: 10 }
-  descriptions: string[]; // UI text in German
-  avoidIf?: Record<string, string>; // e.g. { energy: "<25" }
+  title: string;                         // z. B. "Burger"
+  category: string;                     // z. B. "food", "hygiene", ...
+  requiredXpLevel: number;              // ab welchem Level verfügbar
+  effects: Partial<Record<StateEffectField, number>>; // z. B. { hunger: +25, mood: +10 }
+  descriptions: string[];               // UI-Text (deutsch)
+  avoidIf?: Record<string, string>;     // z. B. { energy: "<25" }
 }
 
-// 📚 All activities mapped by emoji
+// 📚 Alle Aktivitäten, gemappt nach Emoji
 export type ActivityMap = Record<string, Activity>;
 
-// ⚙️ Settings from settings.json
+// ⚙️ Einstellungen aus settings.json
 export interface Settings {
   gameSpeed: number;
   xpPerLevel: number;
   startLevel: number;
   selfActivityProbability: number;
-  decayPerHour: Record<string, number>; // formerly werteVerfallProStunde
+  decayPerHour: Record<string, number>;
   debugLogs: boolean;
+  activityHistoryEnabled: boolean;
+  maxHistoryEntries: number;
 }
 
-// 🧬 Full game state object
+// 🧬 Vollständiger Spielzustand
 export interface State {
   name: string;
 
@@ -54,9 +70,10 @@ export interface State {
   settings: Settings;
 }
 
+// 📊 Für die Aktivitätshistorie (lokal gespeichert)
 export interface ActivityHistoryEntry {
-  timestamp: string; // e.g. "14:32"
-  emoji: string;     // e.g. "🍔"
-  title: string;     // e.g. "Burger"
+  timestamp: string; // z. B. "14:32"
+  emoji: string;     // z. B. "🍔"
+  title: string;     // z. B. "Burger"
   effects: { icon: string; value: number }[];
 }

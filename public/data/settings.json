@@ -1,5 +1,5 @@
 {
-    "gameSpeed": 15,
+    "gameSpeed": 1,
     "_gameSpeed_info": "Echtzeit-Sekunden pro Blobbi-Stunde (Tick-Dauer)",
   
     "selfActivityProbability": 0.3,

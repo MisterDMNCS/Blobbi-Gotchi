@@ -1,14 +1,19 @@
-import { State, Activity } from "../types/types";
+import { State, StateEffectField } from "../types/types";
 import { debugLog } from "../utils/debugLog";
-// import { findActivity } from "./controller"; // Removed as findActivity is defined locally
+import { findActivity } from "./controller";
 
-// 🔄 Numeric keys in State that can be affected by activity effects
-const numericStateKeys: (keyof State)[] = [
-  "hunger", "energy", "mood", "hygiene",
-  "fitness", "health", "xp"
-];
+// 🔁 Helpers for random emoji/description
+function randomEmoji(arr?: string[]): string {
+  if (!arr || arr.length === 0) return "😐";
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
-// 😄 Choose an emoji based on state
+function randomDescription(arr?: string[]): string {
+  if (!arr || arr.length === 0) return "";
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// 😄 Emoji selection based on mood/state
 export function updateEmoji(state: State): string {
   debugLog(state.settings, "updateEmoji");
 
@@ -24,57 +29,31 @@ export function updateEmoji(state: State): string {
   return randomEmoji(emotionEmojis.neutral);
 }
 
-// 🔍 Find valid activities
-export function findActivity(
-  category: string,
-  state: State
-): [string, Activity][] {
-  debugLog(state.settings, "findActivity");
-
-  return Object.entries(state.activities).filter(
-    ([_, activity]) =>
-      activity.category === category &&
-      state.level >= (activity.requiredXpLevel ?? 1) &&
-      isStateAllowed(state, activity.avoidIf)
-  );
-}
-
-// 🎯 Start a random activity from a category
-export function startActivity(
-  category: string,
-  state: State
-): {
-  newState: State;
-  activityEmoji: string;
-  activityTitle: string;
-  activityEffects: Record<string, number>;
-} | null {
+// 🎯 Apply an activity from a category and return new state
+export function startActivity(category: string, state: State): State {
   debugLog(state.settings, "startActivity");
 
   const candidates = findActivity(category, state);
-  if (candidates.length === 0) return null;
+  if (candidates.length === 0) {
+    console.warn(`⚠️ Keine passende Aktivität für Kategorie "${category}"`);
+    return state;
+  }
 
-  const [emoji, activity] =
-    candidates[Math.floor(Math.random() * candidates.length)];
-
+  const [emoji, activity] = candidates[Math.floor(Math.random() * candidates.length)];
   const newState: State = { ...state };
 
-  for (const key in activity.effects) {
-    const typedKey = key as keyof State;
-  
+  for (const [key, effectValue] of Object.entries(activity.effects) as [StateEffectField, number][]) {
     if (
-      numericStateKeys.includes(typedKey) &&
-      typeof newState[typedKey] === "number" &&
-      typeof activity.effects[key] === "number"
+      typeof newState[key] === "number" &&
+      typeof effectValue === "number" &&
+      !isNaN(effectValue)
     ) {
-      const current = newState[typedKey] as number;
-      const effect = activity.effects[key] as number;
-      (newState as any)[typedKey] = Math.min(100, Math.max(0, current + effect));
+      const current = newState[key] as number;
+      newState[key] = Math.min(100, Math.max(0, current + effectValue));
     } else {
-      console.warn("⚠️ Ungültiger Effektwert:", key, activity.effects[key]);
+      console.warn(`⚠️ Ungültiger Effekt für "${key}":`, effectValue);
     }
   }
-  
 
   newState.activityEmoji = emoji;
   newState.currentActivity = activity.title;
@@ -83,19 +62,11 @@ export function startActivity(
     newState.name
   );
 
-  return {
-    newState,
-    activityEmoji: emoji,
-    activityTitle: activity.title,
-    activityEffects: activity.effects
-  };
+  return newState;
 }
 
-// 🚫 Check if state allows this activity
-function isStateAllowed(
-  state: State,
-  rules: Record<string, string> = {}
-): boolean {
+// 🚫 Rule check for avoidIf logic (e.g. { mood: "<40" })
+export function isStateAllowed(state: State, rules: Record<string, string> = {}): boolean {
   debugLog(state.settings, "isStateAllowed");
 
   return Object.entries(rules).every(([key, condition]) => {
@@ -113,15 +84,4 @@ function isStateAllowed(
 
     return true;
   });
-}
-
-// 🔄 Helpers
-function randomEmoji(arr?: string[]): string {
-  if (!arr || arr.length === 0) return "😐";
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function randomDescription(arr?: string[]): string {
-  if (!arr || arr.length === 0) return "";
-  return arr[Math.floor(Math.random() * arr.length)];
 }
