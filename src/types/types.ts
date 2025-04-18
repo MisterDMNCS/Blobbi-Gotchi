@@ -29,7 +29,7 @@ export type ActivityMap = Record<string, Activity>;
 
 // ⚙️ Einstellungen aus settings.json
 export interface Settings {
-  gameSpeed: number;
+  timeFactor: number;                     // ⏱ Steuerung der Spielgeschwindigkeit (Faktor)
   xpPerLevel: number;
   startLevel: number;
   selfActivityProbability: number;
@@ -58,7 +58,7 @@ export interface State {
   level: number;
   xp: number;
 
-  gameSpeed: number;
+  gameSpeed: number; // optional noch enthalten für gespeicherte Zustände
 
   currentEmoji: string;
   activityEmoji: string;
@@ -68,6 +68,9 @@ export interface State {
   emotionEmojis: Record<string, string[]>;
   activities: ActivityMap;
   settings: Settings;
+
+  lastSaved?: number;
+
 }
 
 // 📊 Für die Aktivitätshistorie (lokal gespeichert)

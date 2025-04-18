@@ -30,17 +30,23 @@ export function updateEmoji(state: State): string {
 }
 
 // 🎯 Apply an activity from a category and return new state
-export function startActivity(category: string, state: State): State {
+export function startActivity(category: string, state: State): {
+  newState: State;
+  activityEmoji: string;
+  activityTitle: string;
+  activityEffects: Record<string, number>;
+} | null {
   debugLog(state.settings, "startActivity");
 
   const candidates = findActivity(category, state);
   if (candidates.length === 0) {
     console.warn(`⚠️ Keine passende Aktivität für Kategorie "${category}"`);
-    return state;
+    return null;
   }
 
   const [emoji, activity] = candidates[Math.floor(Math.random() * candidates.length)];
   const newState: State = { ...state };
+  const activityEffects: Record<string, number> = {};
 
   for (const [key, effectValue] of Object.entries(activity.effects) as [StateEffectField, number][]) {
     if (
@@ -50,6 +56,7 @@ export function startActivity(category: string, state: State): State {
     ) {
       const current = newState[key] as number;
       newState[key] = Math.min(100, Math.max(0, current + effectValue));
+      activityEffects[key] = effectValue; // Record for UI
     } else {
       console.warn(`⚠️ Ungültiger Effekt für "${key}":`, effectValue);
     }
@@ -62,8 +69,14 @@ export function startActivity(category: string, state: State): State {
     newState.name
   );
 
-  return newState;
+  return {
+    newState,
+    activityEmoji: emoji,
+    activityTitle: activity.title,
+    activityEffects,
+  };
 }
+
 
 // 🚫 Rule check for avoidIf logic (e.g. { mood: "<40" })
 export function isStateAllowed(state: State, rules: Record<string, string> = {}): boolean {

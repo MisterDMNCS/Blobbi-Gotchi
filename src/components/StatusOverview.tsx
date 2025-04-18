@@ -19,7 +19,13 @@ const StatusOverview: React.FC<Props> = ({ state }) => {
         <div className="flex gap-x-4">
           <div>⭐ Lv {state.level}</div>
           <div>📈 XP: {state.xp}</div>
-          <div>⏳ {state.ageInHours}h</div>
+          <div>
+            ⏳ {state.ageInHours}h{" "}
+            <span className="text-xs text-gray-500">
+              ({state.settings?.timeFactor ?? 1}×)
+            </span>
+          </div>
+
         </div>
       </div>
     </div>

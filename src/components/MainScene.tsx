@@ -20,9 +20,10 @@ const MainScene = () => {
 
   useEffect(() => {
     if (!state) return;
-    const interval = startGameLoop(state as State, setState as React.Dispatch<React.SetStateAction<State>>);
+    const interval = startGameLoop(state, setState);
     return () => clearInterval(interval);
-  }, [state?.gameSpeed]);
+  }, [state?.settings?.timeFactor]); // ✅ reagiert auf Änderung des Faktors
+  
 
   const triggerRandomActivity = (category: string) => {
     debugLog(state?.settings, "triggerRandomActivity", category);

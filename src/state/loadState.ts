@@ -7,22 +7,12 @@ import { mergeSavedStateWithDefaults } from "../logic/storage";
 export async function loadBlobbiState(): Promise<State> {
   const [settings, emojiData, food, hygiene, entertainment, automatic] =
     await Promise.all([
-      fetch("/data/settings.json").then((res) =>
-        res.json()
-      ) as Promise<Settings>,
+      fetch("/data/settings.json").then((res) => res.json()) as Promise<Settings>,
       fetch("/data/blobbiStates.json").then((res) => res.json()),
-      fetch("/data/activities_food.json").then((res) =>
-        res.json()
-      ) as Promise<ActivityMap>,
-      fetch("/data/activities_hygiene.json").then((res) =>
-        res.json()
-      ) as Promise<ActivityMap>,
-      fetch("/data/activities_entertainment.json").then((res) =>
-        res.json()
-      ) as Promise<ActivityMap>,
-      fetch("/data/activities_automatic.json").then((res) =>
-        res.json()
-      ) as Promise<ActivityMap>,
+      fetch("/data/activities_food.json").then((res) => res.json()) as Promise<ActivityMap>,
+      fetch("/data/activities_hygiene.json").then((res) => res.json()) as Promise<ActivityMap>,
+      fetch("/data/activities_entertainment.json").then((res) => res.json()) as Promise<ActivityMap>,
+      fetch("/data/activities_automatic.json").then((res) => res.json()) as Promise<ActivityMap>,
     ]);
 
   const activities: ActivityMap = {
@@ -34,6 +24,7 @@ export async function loadBlobbiState(): Promise<State> {
 
   const defaultState: State = {
     name: "{blobbiName}",
+
     hunger: 100,
     energy: 100,
     mood: 100,
@@ -43,14 +34,19 @@ export async function loadBlobbiState(): Promise<State> {
     social: 50,
     money: 20,
     adventure: 0,
+    health: 100, // ✅ hinzugefügt
+
     ageInHours: 0,
     level: settings.startLevel,
     xp: 0,
-    gameSpeed: settings.gameSpeed,
+
+    gameSpeed: 60, // ✅ Dummy-Wert, für Typkompatibilität (dynamisch verwendet)
+
     currentEmoji: "😄",
     activityEmoji: "",
     currentActivity: "",
     currentActivityDescription: "",
+
     emotionEmojis: emojiData.emotionEmojis,
     activities,
     settings,

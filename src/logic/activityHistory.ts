@@ -1,5 +1,4 @@
 import { ActivityHistoryEntry, Settings } from "../types/types";
-import { debugLog } from "../utils/debugLog";
 
 const HISTORY_KEY = "blobbiActivityHistory";
 
@@ -24,5 +23,5 @@ export function addActivityToHistory(
   const updated = [entry, ...current].slice(0, maxEntries);
 
   localStorage.setItem(HISTORY_KEY, JSON.stringify(updated));
-  debugLog(null, "✅ Activity saved to history", entry);
+  console.log("✅ Activity saved to history");
 }

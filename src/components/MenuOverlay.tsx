@@ -11,6 +11,7 @@ interface Props {
 
 const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
   const [history, setHistory] = useState<ActivityHistoryEntry[]>([]);
+  const [nameInput, setNameInput] = useState(state.name);
 
   useEffect(() => {
     setHistory(loadActivityHistory());
@@ -76,7 +77,6 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
           )}
         </div>
 
-
         {/* 🛠️ Options Menu */}
         <div className="space-y-6">
           {/* Rename */}
@@ -91,15 +91,13 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
               <input
                 id="nameInput"
                 type="text"
-                value={state.name}
-                onChange={(e) =>
-                  setState({ ...state, name: e.target.value })
-                }
+                value={nameInput}
+                onChange={(e) => setNameInput(e.target.value)}
                 className="flex-grow px-3 py-2 border border-gray-300 rounded"
               />
               <button
                 onClick={() => {
-                  // Optional: persist name
+                  setState({ ...state, name: nameInput });
                 }}
                 className="bg-purple-500 text-white px-4 py-2 rounded"
               >
@@ -108,46 +106,55 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
             </div>
           </div>
 
-          {/* Speed control */}
+          {/* Time factor control */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Spielgeschwindigkeit ({state.settings?.gameSpeed}ms)
+              Spielgeschwindigkeit (Faktor):{" "}
+              <span className="font-bold">{state.settings?.timeFactor ?? 1}×</span>
             </label>
-            <div className="flex gap-2">
-              <select
-                className="flex-grow border px-3 py-2 rounded"
-                value={state.settings?.gameSpeed ?? 1000}
-                onChange={(e) =>
-                  setState({
-                    ...state,
-                    settings: {
-                      ...state.settings,
-                      gameSpeed: parseInt(e.target.value),
-                    },
-                  })
-                }
-              >
-                <option value={2000}>Langsam</option>
-                <option value={1000}>Normal</option>
-                <option value={500}>Schnell</option>
-              </select>
-              <button
-                onClick={() => {
-                  // Optional: persist speed
-                }}
-                className="bg-purple-500 text-white px-4 py-2 rounded"
-              >
-                Speichern
-              </button>
+            <input
+              type="range"
+              min={1}
+              max={60}
+              step={1}
+              value={state.settings?.timeFactor ?? 1}
+              onChange={(e) => {
+                const newFactor = parseInt(e.target.value);
+                setState((prev) => {
+                  const updated = { ...prev };
+                  if (!updated.settings) return prev;
+                  updated.settings.timeFactor = newFactor;
+                  return updated;
+                });
+              }}
+              className="w-full accent-purple-500"
+            />
+            <div className="flex justify-between text-xs text-gray-500 mt-1 px-1">
+              <span>1×</span>
+              <span>60×</span>
             </div>
           </div>
 
           {/* Reset button */}
           <div>
-            <button className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">
+            <button
+              className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
+              onClick={() => {
+                localStorage.clear(); // Lösche den lokalen Speicher
+
+                // Lade den Ursprungszustand neu
+                import("../state/loadState").then(({ loadBlobbiState }) => {
+                  loadBlobbiState().then((freshState) => {
+                    setState(freshState);
+                    onClose();
+                  });
+                });
+              }}
+            >
               Spiel zurücksetzen
             </button>
           </div>
+
         </div>
       </div>
     </div>
