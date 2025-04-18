@@ -140,9 +140,15 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
             <button
               className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
               onClick={() => {
-                localStorage.clear(); // Lösche den lokalen Speicher
+                const confirmed = window.confirm(
+                  "Willst du wirklich das Spiel zurücksetzen?\nAlle Daten und der Verlauf werden dauerhaft gelöscht."
+                );
+                if (!confirmed) return;
 
-                // Lade den Ursprungszustand neu
+                // Alles löschen
+                localStorage.clear();
+
+                // Frischen Zustand laden
                 import("../state/loadState").then(({ loadBlobbiState }) => {
                   loadBlobbiState().then((freshState) => {
                     setState(freshState);
