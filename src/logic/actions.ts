@@ -17,8 +17,14 @@ function randomDescription(arr?: string[]): string {
 export function updateEmoji(state: State): string {
   debugLog(state.settings, "updateEmoji");
 
-  const { hunger, energy, mood, fitness, emotionEmojis } = state;
+  const { hunger, energy, mood, fitness, emotionEmojis, isSleeping } = state;
 
+  // 💤 Wenn Blobbi schläft → immer müder Emoji
+  if (isSleeping) {
+    return randomEmoji(emotionEmojis.tired);
+  }
+
+  // ... bisherige Logik:
   if (hunger < 20) return randomEmoji(emotionEmojis.hungry);
   if (energy < 20) return randomEmoji(emotionEmojis.tired);
   if (mood < 20) return randomEmoji(emotionEmojis.sad);
@@ -29,6 +35,7 @@ export function updateEmoji(state: State): string {
   return randomEmoji(emotionEmojis.neutral);
 }
 
+
 // 🎯 Apply an activity from a category and return new state
 export function startActivity(category: string, state: State): {
   newState: State;
@@ -37,6 +44,11 @@ export function startActivity(category: string, state: State): {
   activityEffects: Record<string, number>;
 } | null {
   debugLog(state.settings, "startActivity");
+
+  console.log("🧪 Aktueller state.level:", state.level);
+  console.log("🧪 Alle Aktivitäten:", state.activities);
+  console.log("🧪 Gefilterte Kandidaten:", findActivity(category, state));
+
 
   const candidates = findActivity(category, state);
   if (candidates.length === 0) {

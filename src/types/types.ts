@@ -20,8 +20,8 @@ export interface Activity {
   category: string;                     // z. B. "food", "hygiene", ...
   requiredXpLevel: number;              // ab welchem Level verfügbar
   effects: Partial<Record<StateEffectField, number>>; // z. B. { hunger: +25, mood: +10 }
-  descriptions: string[];               // UI-Text (deutsch)
-  avoidIf?: Record<string, string>;     // z. B. { energy: "<25" }
+  descriptions: string[];               // UI-Text (deutsch), z. B. ["{blobbiName} isst einen Burger"]
+  avoidIf?: Record<string, string>;     // z. B. { energy: "<25" } → Vermeidung bei Zustand
 }
 
 // 📚 Alle Aktivitäten, gemappt nach Emoji
@@ -29,48 +29,58 @@ export type ActivityMap = Record<string, Activity>;
 
 // ⚙️ Einstellungen aus settings.json
 export interface Settings {
-  timeFactor: number;                     // ⏱ Steuerung der Spielgeschwindigkeit (Faktor)
-  xpPerLevel: number;
-  startLevel: number;
-  selfActivityProbability: number;
-  decayPerHour: Record<string, number>;
-  debugLogs: boolean;
-  activityHistoryEnabled: boolean;
-  maxHistoryEntries: number;
+  timeFactor: number;                     // ⏱ Spielgeschwindigkeit
+  xpPerLevel: number;                     // XP pro Level
+  startLevel: number;                     // Startlevel
+  selfActivityProbability: number;        // (nicht mehr in Benutzung, optional)
+  decayPerHour: Record<string, number>;   // Zustand-Verfall pro Spielstunde
+  debugLogs: boolean;                     // Debug-Logging
+  activityHistoryEnabled: boolean;        // Aktivitätshistorie aktiv?
+  maxHistoryEntries: number;              // Verlaufslimit
+
+  sleepThreshold: number;                 // 💤 Einschlafgrenze (z. B. 20)
+  wakeThreshold: number;                  // 🌞 Aufwachgrenze (z. B. 80)
 }
+
 
 // 🧬 Vollständiger Spielzustand
 export interface State {
-  name: string;
+  name: string; // Name des Blobbis (wird angezeigt & bearbeitet)
 
-  hunger: number;
-  energy: number;
-  mood: number;
-  hygiene: number;
-  knowledge: number;
-  fitness: number;
-  social: number;
-  money: number;
-  adventure: number;
-  health: number;
+  // 🧠 Statuswerte (0–100)
+  hunger: number;    // Hunger-Level (0 = sehr hungrig)
+  energy: number;    // Energie-Level (0 = müde)
+  mood: number;      // Laune
+  hygiene: number;   // Sauberkeit
+  knowledge: number; // Wissen
+  fitness: number;   // Fitness
+  social: number;    // Sozialverhalten
+  money: number;     // Virtuelles Geld
+  adventure: number; // Abenteuerlust
+  health: number;    // Gesundheit (generell)
 
-  ageInHours: number;
-  level: number;
-  xp: number;
+  // ⌛ Zeit & Fortschritt
+  ageInHours: number; // Alter in Spielstunden
+  level: number;      // Aktuelles Level
+  xp: number;         // Aktuelle Erfahrungspunkte
 
-  gameSpeed: number; // optional noch enthalten für gespeicherte Zustände
+  gameSpeed: number; // ⚙️ Für Kompatibilität (nicht mehr aktiv verwendet)
 
-  currentEmoji: string;
-  activityEmoji: string;
-  currentActivity: string;
-  currentActivityDescription: string;
+  // 😀 Anzeige
+  currentEmoji: string;                 // Gesichtsausdruck
+  activityEmoji: string;               // Emoji der aktuellen Aktivität
+  currentActivity: string;             // Name der aktuellen Aktivität
+  currentActivityDescription: string;  // Beschreibung der aktuellen Aktivität
 
-  emotionEmojis: Record<string, string[]>;
-  activities: ActivityMap;
-  settings: Settings;
+  emotionEmojis: Record<string, string[]>; // Emoji-Sets je nach Stimmung
 
-  lastSaved?: number;
+  // 🔁 Aktivitäten & Konfiguration
+  activities: ActivityMap;   // Alle bekannten Aktivitäten (nach Emoji)
+  settings: Settings;        // Spiel-Einstellungen (z. B. decay, timeFactor)
 
+  // 💾 System
+  lastSaved?: number;        // Letzter Speicherzeitpunkt (ms)
+  isSleeping: boolean;       // 💤 Ist der Blobbi aktuell im Schlafmodus?
 }
 
 // 📊 Für die Aktivitätshistorie (lokal gespeichert)
@@ -78,5 +88,5 @@ export interface ActivityHistoryEntry {
   timestamp: string; // z. B. "14:32"
   emoji: string;     // z. B. "🍔"
   title: string;     // z. B. "Burger"
-  effects: { icon: string; value: number }[];
+  effects: { icon: string; value: number }[]; // Liste der Auswirkungen
 }

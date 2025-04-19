@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
 import { State, ActivityHistoryEntry } from "../types/types";
 import StatusOverview from "./StatusOverview";
 import { loadActivityHistory } from "../logic/activityHistory";
+import React, { useEffect, useState, useRef } from "react";
 
 interface Props {
   state: State;
@@ -12,24 +12,36 @@ interface Props {
 const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
   const [history, setHistory] = useState<ActivityHistoryEntry[]>([]);
   const [nameInput, setNameInput] = useState(state.name);
+  const nameInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setHistory(loadActivityHistory());
+    if (
+      state.name === "{blobbiName}" ||
+      state.name.trim().length === 0
+    ) {
+      nameInputRef.current?.focus();
+      nameInputRef.current?.select();
+    }
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const data = loadActivityHistory();
+      setHistory(data);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const persistNameChange = (newName: string) => {
+    const updated = { ...state, name: newName };
+    setState(updated);
+    import("../logic/storage").then(({ saveState }) => {
+      saveState(updated);
+    });
+  };
 
   return (
     <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
-      {/* ❌ Close icon (fixed) */}
-      <div className="fixed top-3 right-3 z-50">
-        <button
-          onClick={onClose}
-          className="text-3xl p-2"
-          aria-label="Menü schließen"
-        >
-          ❌
-        </button>
-      </div>
-
       <div className="p-6 max-w-xl mx-auto">
         {/* 🔝 Status overview */}
         <div className="mb-4">
@@ -39,7 +51,6 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
         {/* 📜 Activity History */}
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-2">Letzte Aktivitäten</h3>
-
           {history.length === 0 ? (
             <div className="text-sm text-gray-500">
               Noch keine Aktivitäten gespeichert.
@@ -59,15 +70,19 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
                     <td className="p-2 align-top">
                       <div>{entry.emoji} {entry.title}</div>
                       <div className="mt-1 text-gray-600 text-xs">
-                        {entry.effects.map((eff, i) => (
-                          <span
-                            key={i}
-                            className="inline-block mr-2 whitespace-nowrap"
-                          >
-                            {eff.icon} {eff.value > 0 ? "+" : ""}
-                            {eff.value}
-                          </span>
-                        ))}
+                        {entry.effects.length === 0 ? (
+                          <span className="italic text-gray-400">(keine Auswirkung)</span>
+                        ) : (
+                          entry.effects.map((eff, i) => (
+                            <span
+                              key={i}
+                              className="inline-block mr-2 whitespace-nowrap"
+                            >
+                              {eff.icon} {eff.value > 0 ? "+" : ""}
+                              {eff.value}
+                            </span>
+                          ))
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -81,15 +96,13 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
         <div className="space-y-6">
           {/* Rename */}
           <div>
-            <label
-              htmlFor="nameInput"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
+            <label htmlFor="nameInput" className="block text-sm font-medium text-gray-700 mb-1">
               Name ändern
             </label>
             <div className="flex gap-2">
               <input
                 id="nameInput"
+                ref={nameInputRef}
                 type="text"
                 value={nameInput}
                 onChange={(e) => setNameInput(e.target.value)}
@@ -97,8 +110,14 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
               />
               <button
                 onClick={() => {
-                  setState({ ...state, name: nameInput });
+                  const updated = { ...state, name: nameInput };
+                  setState(updated);
+                  import("../logic/storage").then(({ saveState }) => {
+                    saveState(updated);
+                    window.location.reload(); // ✅ direkter Reload nach Speichern
+                  });
                 }}
+               
                 className="bg-purple-500 text-white px-4 py-2 rounded"
               >
                 Speichern
@@ -144,23 +163,29 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
                   "Willst du wirklich das Spiel zurücksetzen?\nAlle Daten und der Verlauf werden dauerhaft gelöscht."
                 );
                 if (!confirmed) return;
-
-                // Alles löschen
                 localStorage.clear();
-
-                // Frischen Zustand laden
-                import("../state/loadState").then(({ loadBlobbiState }) => {
-                  loadBlobbiState().then((freshState) => {
-                    setState(freshState);
-                    onClose();
-                  });
-                });
+                window.location.reload();
               }}
             >
               Spiel zurücksetzen
             </button>
           </div>
+        </div>
 
+        {/* ❌ Close button unten rechts (ersetzt Burger-Button) */}
+        <div className="fixed bottom-4 right-4 z-50">
+          <button
+            onClick={() => {
+              if (nameInput !== state.name) {
+                persistNameChange(nameInput);
+              }
+              onClose();
+            }}
+            className="text-3xl p-2 bg-white rounded-full shadow-lg border hover:bg-gray-100 transition"
+            aria-label="Menü schließen"
+          >
+            ❌
+          </button>
         </div>
       </div>
     </div>

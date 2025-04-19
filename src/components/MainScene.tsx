@@ -13,16 +13,59 @@ const MainScene = () => {
   const [state, setState] = useState<State | null>(null);
   const [showCheats] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [tickProgress, setTickProgress] = useState(0);
 
   useEffect(() => {
-    loadBlobbiState().then(setState);
+    loadBlobbiState().then((loadedState) => {
+      setState(loadedState);
+      if (
+        loadedState.name === "{blobbiName}" ||
+        loadedState.name.trim().length === 0
+      ) {
+        setShowMenu(true);
+      }
+    });
   }, []);
 
   useEffect(() => {
     if (!state) return;
-    const interval = startGameLoop(state, setState);
+  
+    const safeSetState: React.Dispatch<React.SetStateAction<State>> = (fnOrValue) =>
+      setState((prev) => {
+        if (!prev) return prev as unknown as State;
+
+        const result = typeof fnOrValue === "function"
+          ? (fnOrValue as (prev: State) => State)(prev)
+          : fnOrValue;
+        return result;
+      });
+  
+    const interval = startGameLoop(state, safeSetState);
     return () => clearInterval(interval);
-  }, [state?.settings?.timeFactor]); // ✅ reagiert auf Änderung des Faktors
+  }, [state?.settings?.timeFactor]);
+  
+
+  // 🎯 Fortschrittsbalken synchronisiert mit jedem GameLoop-Tick
+  useEffect(() => {
+    if (!state || typeof state.settings?.timeFactor !== "number") return;
+  
+    const tickDurationMs = 60_000 / Math.max(state.settings.timeFactor, 1);
+    let startTime = performance.now();
+    let animationFrameId: number;
+  
+    const animate = (time: number) => {
+      const elapsed = time - startTime;
+      const progress = (elapsed % tickDurationMs) / tickDurationMs;
+      setTickProgress(progress * 100);
+  
+      animationFrameId = requestAnimationFrame(animate);
+    };
+  
+    animationFrameId = requestAnimationFrame(animate);
+  
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [state?.settings?.timeFactor]);
+  
   
 
   const triggerRandomActivity = (category: string) => {
@@ -92,29 +135,40 @@ const MainScene = () => {
         )}
       </div>
 
-      {/* 🔘 Bottom menu */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-3 flex justify-around z-50">
-        <button
-          onClick={() => triggerRandomActivity("food")}
-          className="text-3xl p-2 bg-green-400 rounded-full"
-        >
-          🍔
-        </button>
-        <button
-          onClick={() => triggerRandomActivity("hygiene")}
-          className="text-3xl p-2 bg-blue-400 rounded-full"
-        >
-          🧼
-        </button>
-        <button
-          onClick={() => triggerRandomActivity("entertainment")}
-          className="text-3xl p-2 bg-purple-400 rounded-full"
-        >
-          🎮
-        </button>
-        <button onClick={() => setShowMenu(true)} className="text-3xl p-2">
-          ☰
-        </button>
+      {/* ⏳ Tick-Progress + Menüblock gemeinsam */}
+      <div className="fixed bottom-0 left-0 right-0 z-50">
+        {/* Tick-Progress Bar */}
+        <div className="h-1 bg-gray-200 w-full">
+          <div
+            className="h-full bg-black transition-all duration-100 ease-linear"
+            style={{ width: `${tickProgress}%` }}
+          />
+        </div>
+
+        {/* 🔘 Bottom menu */}
+        <div className="bg-white border-t p-3 flex justify-around">
+          <button
+            onClick={() => triggerRandomActivity("food")}
+            className="text-3xl p-2 bg-green-400 rounded-full"
+          >
+            🍔
+          </button>
+          <button
+            onClick={() => triggerRandomActivity("hygiene")}
+            className="text-3xl p-2 bg-blue-400 rounded-full"
+          >
+            🧼
+          </button>
+          <button
+            onClick={() => triggerRandomActivity("entertainment")}
+            className="text-3xl p-2 bg-purple-400 rounded-full"
+          >
+            🎮
+          </button>
+          <button onClick={() => setShowMenu(true)} className="text-3xl p-2">
+            ☰
+          </button>
+        </div>
       </div>
 
       {/* 🔧 Cheat menu */}
