@@ -1,3 +1,17 @@
+/**
+ * MainScene.tsx
+ * ------------------------------
+ * Hauptansicht des Spiels "Blobbi Gotchi".
+ * Enthält den Avatar, die Tick-Logik, Menü, Fortschrittsbalken und Aktivitätenauswahl.
+ * 
+ * Kernfunktionen:
+ * - Lädt den Spielzustand beim Start
+ * - Startet den GameLoop (Tick)
+ * - Steuert die Fortschrittsanzeige synchron zum GameLoop
+ * - Zeigt aktuellen Zustand und Aktivität des Blobbi
+ * - Ermöglicht Benutzerinteraktionen über Menü und Buttons
+ */
+
 import { useEffect, useState } from "react";
 import { loadBlobbiState } from "../state/loadState";
 import { startActivity } from "../logic/actions";
@@ -10,11 +24,22 @@ import { addActivityToHistory } from "../logic/activityHistory";
 import { effectIcons } from "../utils/effectIcons";
 
 const MainScene = () => {
+  // 🎮 Spielzustand
   const [state, setState] = useState<State | null>(null);
+
+  // 🧪 Dev Tools (z. B. später Cheat-Menü)
   const [showCheats] = useState(false);
+
+  // 📋 Menüsteuerung
   const [showMenu, setShowMenu] = useState(false);
+
+  // ⏳ Fortschrittswert der Tick-Animation (0–100)
   const [tickProgress, setTickProgress] = useState(0);
 
+  /**
+   * ⏱ Initiales Laden des Blobbi-Zustands beim Start der App.
+   * Öffnet Menü, wenn Name noch nicht vergeben wurde.
+   */
   useEffect(() => {
     loadBlobbiState().then((loadedState) => {
       setState(loadedState);
@@ -27,6 +52,21 @@ const MainScene = () => {
     });
   }, []);
 
+  /**
+   * 🧠 Setzt den Seitentitel im Browser (Tab) abhängig vom aktuellen Emoji + Name
+   */
+  useEffect(() => {
+    if (state?.name && state?.currentEmoji) {
+      document.title = `${state.currentEmoji} Spiel mit ${state.name}`;
+    } else { 
+      document.title = "Blobbi-Gotchi";
+    }
+  }, [state?.name, state?.currentEmoji]);
+
+  /**
+   * 🔁 Startet den GameLoop (Tick-Mechanik).
+   * Nutzt einen typensicheren Wrapper für setState, da der State auch null sein kann.
+   */
   useEffect(() => {
     if (!state) return;
 
@@ -44,7 +84,10 @@ const MainScene = () => {
     return () => clearInterval(interval);
   }, [state?.settings?.timeFactor]);
 
-  // ⏳ Fortschrittsbalken synchron mit GameLoop, robust per setInterval
+  /**
+   * ⏳ Fortschrittsanimation: zeigt an, wie weit der aktuelle Tick fortgeschritten ist.
+   * Läuft unabhängig vom GameLoop, aber synchron zur Tick-Zeit.
+   */
   useEffect(() => {
     if (!state?.settings?.timeFactor) return;
 
@@ -53,11 +96,15 @@ const MainScene = () => {
       const now = performance.now();
       const progress = (now % tickDurationMs) / tickDurationMs;
       setTickProgress(progress * 100);
-    }, 100); // Update alle 100ms
+    }, 100); // Alle 100ms aktualisieren
 
     return () => clearInterval(interval);
   }, [state?.settings?.timeFactor]);
 
+  /**
+   * 🎯 Führt eine zufällige Aktivität aus der gewählten Kategorie aus.
+   * Wird durch Button-Klicks unten ausgelöst.
+   */
   const triggerRandomActivity = (category: string) => {
     debugLog(state?.settings, "triggerRandomActivity", category);
 
@@ -97,12 +144,12 @@ const MainScene = () => {
 
   return (
     <div className="flex flex-col h-screen w-full bg-gradient-to-b from-blue-100 to-blue-300">
-      {/* 🔝 Top bar */}
+      {/* 🔝 Oberer Statusbereich */}
       <div className="flex flex-col gap-1 text-sm mb-4 px-4">
         <StatusOverview state={state} />
       </div>
 
-      {/* 🧍 Avatar */}
+      {/* 🧍 Avatar + Aktivitätsanzeige */}
       <div className="w-full flex flex-col items-center justify-center flex-grow">
         <div className="relative flex items-center justify-center mb-2">
           <div className="text-9xl emoji-state">{state.currentEmoji}</div>
@@ -125,9 +172,9 @@ const MainScene = () => {
         )}
       </div>
 
-      {/* ⏳ Tick-Progress + Menüblock gemeinsam */}
+      {/* ⏳ Fortschrittsbalken + Button-Menü */}
       <div className="fixed bottom-0 left-0 right-0 z-50">
-        {/* Tick-Progress Bar */}
+        {/* Fortschrittsbalken */}
         <div className="h-1 bg-gray-200 w-full">
           <div
             className="h-full bg-black transition-all duration-100 ease-linear"
@@ -135,7 +182,7 @@ const MainScene = () => {
           />
         </div>
 
-        {/* 🔘 Bottom menu */}
+        {/* Aktions-Buttons */}
         <div className="bg-white border-t p-3 flex justify-around">
           <button
             onClick={() => triggerRandomActivity("food")}
@@ -161,14 +208,14 @@ const MainScene = () => {
         </div>
       </div>
 
-      {/* 🔧 Cheat menu */}
+      {/* 🧪 Optionales Cheat-Menü */}
       {showCheats && (
         <div className="absolute top-16 right-4 bg-white shadow-xl rounded p-4 text-sm">
           <div>Cheat-Menü (bald verfügbar 😉)</div>
         </div>
       )}
 
-      {/* 📋 Menu overlay */}
+      {/* 📋 Einstellungsmenü */}
       {showMenu && state && (
         <MenuOverlay
           state={state}
