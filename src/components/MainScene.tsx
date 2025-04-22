@@ -57,7 +57,7 @@ const MainScene = () => {
    */
   useEffect(() => {
     if (state?.name && state?.currentEmoji) {
-      document.title = `${state.currentEmoji} Spiel mit ${state.name}`;
+      document.title = `${state.currentEmoji} ${state.name} lebt!`;
     } else { 
       document.title = "Blobbi-Gotchi";
     }
