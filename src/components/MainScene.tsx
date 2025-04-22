@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { loadBlobbiState } from "../state/loadState";
 import { startActivity } from "../logic/actions";
 import { startGameLoop } from "../logic/controller";
@@ -14,7 +14,6 @@ const MainScene = () => {
   const [showCheats] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [tickProgress, setTickProgress] = useState(0);
-  const animationRef = useRef<number | null>(null);
 
   useEffect(() => {
     loadBlobbiState().then((loadedState) => {
@@ -45,27 +44,18 @@ const MainScene = () => {
     return () => clearInterval(interval);
   }, [state?.settings?.timeFactor]);
 
-  // 🎯 Fortschrittsbalken dauerhaft animiert mit requestAnimationFrame
+  // ⏳ Fortschrittsbalken synchron mit GameLoop, robust per setInterval
   useEffect(() => {
     if (!state?.settings?.timeFactor) return;
 
-    const tickDurationMs = 60_000 / Math.max(state.settings.timeFactor, 1);
-    let startTime = performance.now();
-
-    const animate = (time: number) => {
-      const elapsed = time - startTime;
-      const progress = (elapsed % tickDurationMs) / tickDurationMs;
+    const tickDurationMs = 60_000 / state.settings.timeFactor;
+    const interval = setInterval(() => {
+      const now = performance.now();
+      const progress = (now % tickDurationMs) / tickDurationMs;
       setTickProgress(progress * 100);
-      animationRef.current = requestAnimationFrame(animate);
-    };
+    }, 100); // Update alle 100ms
 
-    animationRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
+    return () => clearInterval(interval);
   }, [state?.settings?.timeFactor]);
 
   const triggerRandomActivity = (category: string) => {
