@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { loadBlobbiState } from "../state/loadState";
 import { startActivity } from "../logic/actions";
 import { startGameLoop } from "../logic/controller";
@@ -14,6 +14,7 @@ const MainScene = () => {
   const [showCheats] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [tickProgress, setTickProgress] = useState(0);
+  const animationRef = useRef<number | null>(null);
 
   useEffect(() => {
     loadBlobbiState().then((loadedState) => {
@@ -29,44 +30,43 @@ const MainScene = () => {
 
   useEffect(() => {
     if (!state) return;
-  
+
     const safeSetState: React.Dispatch<React.SetStateAction<State>> = (fnOrValue) =>
       setState((prev) => {
         if (!prev) return prev as unknown as State;
-
-        const result = typeof fnOrValue === "function"
-          ? (fnOrValue as (prev: State) => State)(prev)
-          : fnOrValue;
+        const result =
+          typeof fnOrValue === "function"
+            ? (fnOrValue as (prev: State) => State)(prev)
+            : fnOrValue;
         return result;
       });
-  
+
     const interval = startGameLoop(state, safeSetState);
     return () => clearInterval(interval);
   }, [state?.settings?.timeFactor]);
-  
 
-  // 🎯 Fortschrittsbalken synchronisiert mit jedem GameLoop-Tick
+  // 🎯 Fortschrittsbalken dauerhaft animiert mit requestAnimationFrame
   useEffect(() => {
-    if (!state || typeof state.settings?.timeFactor !== "number") return;
-  
+    if (!state?.settings?.timeFactor) return;
+
     const tickDurationMs = 60_000 / Math.max(state.settings.timeFactor, 1);
     let startTime = performance.now();
-    let animationFrameId: number;
-  
+
     const animate = (time: number) => {
       const elapsed = time - startTime;
       const progress = (elapsed % tickDurationMs) / tickDurationMs;
       setTickProgress(progress * 100);
-  
-      animationFrameId = requestAnimationFrame(animate);
+      animationRef.current = requestAnimationFrame(animate);
     };
-  
-    animationFrameId = requestAnimationFrame(animate);
-  
-    return () => cancelAnimationFrame(animationFrameId);
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
   }, [state?.settings?.timeFactor]);
-  
-  
 
   const triggerRandomActivity = (category: string) => {
     debugLog(state?.settings, "triggerRandomActivity", category);
