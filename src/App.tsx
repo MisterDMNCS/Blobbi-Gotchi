@@ -1,4 +1,5 @@
 import MainScene from "./components/MainScene";
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   return (
