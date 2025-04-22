@@ -1,7 +1,15 @@
+/**
+ * MenuOverlay.tsx
+ * -----------------------------
+ * Das Menü-Overlay zeigt den Status, den Aktivitätsverlauf und Einstellungen.
+ * Es erlaubt dem Benutzer, den Blobbi umzubenennen, die Spielgeschwindigkeit zu ändern
+ * oder das Spiel komplett zurückzusetzen.
+ */
+
+import React, { useEffect, useState, useRef } from "react";
 import { State, ActivityHistoryEntry } from "../types/types";
 import StatusOverview from "./StatusOverview";
 import { loadActivityHistory } from "../logic/activityHistory";
-import React, { useEffect, useState, useRef } from "react";
 
 interface Props {
   state: State;
@@ -14,6 +22,10 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
   const [nameInput, setNameInput] = useState(state.name);
   const nameInputRef = useRef<HTMLInputElement>(null);
 
+  /**
+   * 🎯 Fokussiere und markiere das Namensfeld,
+   * wenn der Benutzername noch nicht gesetzt ist.
+   */
   useEffect(() => {
     if (
       state.name === "{blobbiName}" ||
@@ -24,6 +36,10 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
     }
   }, []);
 
+  /**
+   * 🔄 Lade regelmäßig die Aktivitätshistorie aus localStorage.
+   * Dies ermöglicht eine Live-Aktualisierung auch bei automatischen Aktivitäten.
+   */
   useEffect(() => {
     const interval = setInterval(() => {
       const data = loadActivityHistory();
@@ -32,23 +48,16 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const persistNameChange = (newName: string) => {
-    const updated = { ...state, name: newName };
-    setState(updated);
-    import("../logic/storage").then(({ saveState }) => {
-      saveState(updated);
-    });
-  };
 
   return (
     <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
       <div className="p-6 max-w-xl mx-auto">
-        {/* 🔝 Status overview */}
+        {/* 🔝 Statusübersicht */}
         <div className="mb-4">
           <StatusOverview state={state} />
         </div>
 
-        {/* 📜 Activity History */}
+        {/* 📜 Verlauf der letzten Aktivitäten */}
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-2">Letzte Aktivitäten</h3>
           {history.length === 0 ? (
@@ -92,9 +101,9 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
           )}
         </div>
 
-        {/* 🛠️ Options Menu */}
+        {/* 🛠️ Einstellungsbereich */}
         <div className="space-y-6">
-          {/* Rename */}
+          {/* Namensänderung */}
           <div>
             <label htmlFor="nameInput" className="block text-sm font-medium text-gray-700 mb-1">
               Name ändern
@@ -114,10 +123,9 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
                   setState(updated);
                   import("../logic/storage").then(({ saveState }) => {
                     saveState(updated);
-                    window.location.reload(); // ✅ direkter Reload nach Speichern
+                    window.location.reload(); // 🔄 Nach dem Speichern alles neu laden
                   });
                 }}
-               
                 className="bg-purple-500 text-white px-4 py-2 rounded"
               >
                 Speichern
@@ -125,36 +133,64 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
             </div>
           </div>
 
-          {/* Time factor control */}
+          {/* Spielgeschwindigkeit (Option Boxes) */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Spielgeschwindigkeit (Faktor):{" "}
-              <span className="font-bold">{state.settings?.timeFactor ?? 1}×</span>
+              Spielgeschwindigkeit:{" "}
+              <span className="font-bold">{state.settings?.timeFactor}×</span>
             </label>
-            <input
-              type="range"
-              min={1}
-              max={60}
-              step={1}
-              value={state.settings?.timeFactor ?? 1}
-              onChange={(e) => {
-                const newFactor = parseInt(e.target.value);
-                setState((prev) => {
-                  const updated = { ...prev };
-                  if (!updated.settings) return prev;
-                  updated.settings.timeFactor = newFactor;
-                  return updated;
-                });
-              }}
-              className="w-full accent-purple-500"
-            />
-            <div className="flex justify-between text-xs text-gray-500 mt-1 px-1">
-              <span>1×</span>
-              <span>60×</span>
+            <div className="flex gap-2 flex-wrap mt-1">
+              {[1, 10, 30, 60].map((factor) => (
+                <label
+                  key={factor}
+                  className={`px-3 py-1 rounded border cursor-pointer text-sm transition
+                    ${
+                      state.settings?.timeFactor === factor
+                        ? "bg-purple-500 text-white border-purple-500"
+                        : "bg-white text-gray-800 border-gray-300 hover:border-purple-400"
+                    }`}
+                >
+                  <input
+                    type="radio"
+                    name="speed"
+                    value={factor}
+                    checked={state.settings?.timeFactor === factor}
+                    onChange={() => {
+                      setState((prev) => {
+                        const updated = { ...prev };
+                        if (updated.settings) {
+                          updated.settings.timeFactor = factor;
+                        }
+                        return updated;
+                      });
+                    }}
+                    className="hidden"
+                  />
+                  {factor}×
+                </label>
+              ))}
+              {/* Uhrzeit zurücksetzen */}
+              <button
+                onClick={() => {
+                  const now = new Date();
+                  const minutes = now.getHours() * 60 + now.getMinutes(); + now.getSeconds() / 60;
+                  
+                  const updated = {
+                    ...state,
+                    settings: { ...state.settings, timeFactor: 1 },
+                    blobbiClockMinutes: minutes
+                  };
+                  setState(updated);
+                  import("../logic/storage").then(({ saveState }) => saveState(updated));
+                }}
+                className="px-3 py-1 rounded border bg-red-100 text-red-800 hover:bg-red-200 text-sm"
+              >
+                Reset Time
+              </button>
             </div>
           </div>
 
-          {/* Reset button */}
+          {/* Spiel zurücksetzen */}
           <div>
             <button
               className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
@@ -172,14 +208,16 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
           </div>
         </div>
 
-        {/* ❌ Close button unten rechts (ersetzt Burger-Button) */}
+        {/* ❌ Schließen-Button unten rechts */}
         <div className="fixed bottom-4 right-4 z-50">
           <button
             onClick={() => {
-              if (nameInput !== state.name) {
-                persistNameChange(nameInput);
-              }
-              onClose();
+              const updated = { ...state, name: nameInput };
+              setState(updated);
+              import("../logic/storage").then(({ saveState }) => {
+                saveState(updated);
+                onClose();
+              });
             }}
             className="text-3xl p-2 bg-white rounded-full shadow-lg border hover:bg-gray-100 transition"
             aria-label="Menü schließen"

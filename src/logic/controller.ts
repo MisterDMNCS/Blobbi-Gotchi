@@ -45,8 +45,9 @@ export function startGameLoop(
       updated.hunger = Math.max(0, updated.hunger - (decay.hunger ?? 0));
       updated.energy = Math.max(0, updated.energy - (decay.energy ?? 0));
       updated.mood = Math.max(0, updated.mood - (decay.mood ?? 0));
-      updated.ageInHours += 1;
-
+      updated.blobbiClockMinutes = (updated.blobbiClockMinutes + 1) % 1440;
+      if (updated.blobbiClockMinutes === 0) updated.blobbiDays += 1;
+      
       updated.currentEmoji = updateEmoji(updated);
 
       const now = new Date();

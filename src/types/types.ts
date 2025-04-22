@@ -48,45 +48,47 @@ export interface State {
   name: string; // Name des Blobbis (wird angezeigt & bearbeitet)
 
   // 🧠 Statuswerte (0–100)
-  hunger: number;    // Hunger-Level (0 = sehr hungrig)
-  energy: number;    // Energie-Level (0 = müde)
-  mood: number;      // Laune
-  hygiene: number;   // Sauberkeit
-  knowledge: number; // Wissen
-  fitness: number;   // Fitness
-  social: number;    // Sozialverhalten
-  money: number;     // Virtuelles Geld
-  adventure: number; // Abenteuerlust
-  health: number;    // Gesundheit (generell)
+  hunger: number;
+  energy: number;
+  mood: number;
+  hygiene: number;
+  knowledge: number;
+  fitness: number;
+  social: number;
+  money: number;
+  adventure: number;
+  health: number;
 
   // ⌛ Zeit & Fortschritt
-  ageInHours: number; // Alter in Spielstunden
-  level: number;      // Aktuelles Level
-  xp: number;         // Aktuelle Erfahrungspunkte
+  blobbiClockMinutes: number;          // 🕒 Aktuelle Spieluhrzeit (0–1439 Minuten seit 00:00)
+  blobbiDays: number;                  // 📆 Anzahl vergangener Blobbi-Tage
+  blobbiClockStartTimestamp: number;  // ⏱ Startzeit (UNIX-Zeit in ms), zur Synchronisation mit Systemzeit bei Faktor 1
 
-  gameSpeed: number; // ⚙️ Für Kompatibilität (nicht mehr aktiv verwendet)
+  level: number;
+  xp: number;
+
+  gameSpeed: number; // ⚙️ legacy
 
   // 😀 Anzeige
-  currentEmoji: string;                 // Gesichtsausdruck
-  activityEmoji: string;               // Emoji der aktuellen Aktivität
-  currentActivity: string;             // Name der aktuellen Aktivität
-  currentActivityDescription: string;  // Beschreibung der aktuellen Aktivität
+  currentEmoji: string;
+  activityEmoji: string;
+  currentActivity: string;
+  currentActivityDescription: string;
 
-  emotionEmojis: Record<string, string[]>; // Emoji-Sets je nach Stimmung
-
-  // 🔁 Aktivitäten & Konfiguration
-  activities: ActivityMap;   // Alle bekannten Aktivitäten (nach Emoji)
-  settings: Settings;        // Spiel-Einstellungen (z. B. decay, timeFactor)
+  emotionEmojis: Record<string, string[]>;
+  activities: ActivityMap;
+  settings: Settings;
 
   // 💾 System
-  lastSaved?: number;        // Letzter Speicherzeitpunkt (ms)
-  isSleeping: boolean;       // 💤 Ist der Blobbi aktuell im Schlafmodus?
+  lastSaved?: number;
+  isSleeping: boolean;
 }
+
 
 // 📊 Für die Aktivitätshistorie (lokal gespeichert)
 export interface ActivityHistoryEntry {
-  timestamp: string; // z. B. "14:32"
-  emoji: string;     // z. B. "🍔"
-  title: string;     // z. B. "Burger"
-  effects: { icon: string; value: number }[]; // Liste der Auswirkungen
+  timestamp: string;
+  emoji: string;
+  title: string;
+  effects: { icon: string; value: number }[];
 }

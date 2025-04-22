@@ -27,7 +27,7 @@ export function saveState(state: State): void {
 
 /**
  * Merges saved localStorage state with default values
- * and applies time-based decay.
+ * und aktualisiert Zeitinformation bei jedem Reload.
  */
 export function mergeSavedStateWithDefaults(defaultState: State): State {
   const saved = localStorage.getItem(STORAGE_KEY);
@@ -41,8 +41,16 @@ export function mergeSavedStateWithDefaults(defaultState: State): State {
     parsed.settings.timeFactor = parseFloat(savedTimeFactor);
   }
 
-  const now = Date.now();
-  const timePassedMs = now - (parsed.lastSaved ?? now); // 💡 lastSaved ist optional
+  const now = new Date();
+  const nowMs = now.getTime();
+
+  // ✅ Systemzeit übernehmen bei jedem Reload
+  parsed.blobbiClockStartTimestamp = nowMs;
+  parsed.blobbiClockMinutes =
+  now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
+
+
+  const timePassedMs = nowMs - (parsed.lastSaved ?? nowMs);
   const passedSeconds = Math.floor(timePassedMs / 1000);
   const gameSpeed = 60 / Math.max(parsed.settings?.timeFactor ?? 1, 0.1);
   const passedHours = Math.floor(passedSeconds / gameSpeed);
@@ -62,8 +70,8 @@ export function mergeSavedStateWithDefaults(defaultState: State): State {
       parsed.mood - (parsed.settings.decayPerHour.mood ?? 1) * passedHours,
       0
     );
-    parsed.ageInHours += passedHours;
   }
 
   return { ...defaultState, ...parsed };
 }
+

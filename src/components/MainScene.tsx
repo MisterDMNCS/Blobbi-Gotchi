@@ -84,22 +84,26 @@ const MainScene = () => {
     return () => clearInterval(interval);
   }, [state?.settings?.timeFactor]);
 
+
   /**
-   * ⏳ Fortschrittsanimation: zeigt an, wie weit der aktuelle Tick fortgeschritten ist.
-   * Läuft unabhängig vom GameLoop, aber synchron zur Tick-Zeit.
+   * ⏳ Fortschrittsanimation: zeigt die verbleibenden "BlobbiSeconds" bis zur nächsten Blobbi-Minute.
+   * Sie basiert ausschließlich auf der Tick-Dauer, die aus dem timeFactor berechnet wird.
    */
   useEffect(() => {
     if (!state?.settings?.timeFactor) return;
 
-    const tickDurationMs = 60_000 / state.settings.timeFactor;
+    //const tickDurationMs = 60_000 / state.settings.timeFactor;
     const interval = setInterval(() => {
-      const now = performance.now();
-      const progress = (now % tickDurationMs) / tickDurationMs;
+      const now = new Date();
+      const seconds = now.getSeconds() + now.getMilliseconds() / 1000;
+      const progress = (seconds % (60 / state.settings.timeFactor)) / (60 / state.settings.timeFactor);
       setTickProgress(progress * 100);
-    }, 100); // Alle 100ms aktualisieren
+    }, 100); // Aktualisiere 10× pro Sekunde
 
     return () => clearInterval(interval);
   }, [state?.settings?.timeFactor]);
+
+
 
   /**
    * 🎯 Führt eine zufällige Aktivität aus der gewählten Kategorie aus.
