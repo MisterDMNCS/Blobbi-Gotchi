@@ -4,7 +4,7 @@ import { updateEmoji, startActivity, isStateAllowed } from "./actions";
 import { debugLog } from "../utils/debugLog";
 import { addActivityToHistory } from "./activityHistory";
 import { effectIcons } from "../utils/effectIcons";
-import { getBlobbiClock } from "../utils/time";
+// import { getBlobbiClock } from "../utils/time";
 
 /**
  * Filters all activities in the given category that the Blobbi is allowed to perform.
