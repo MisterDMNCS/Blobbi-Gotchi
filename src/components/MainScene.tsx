@@ -185,8 +185,7 @@ const MainScene = () => {
         {/* Fortschrittsbalken */}
         <div className="h-1 bg-gray-200 w-full">
           <div
-            className='h-full transition-all duration-100 ease-linear ${ 
-              ss < 20 ? "bg-blue-500 animate-pulse" : "bg-black"}'
+            className="h-full bg-black transition-all duration-100 ease-linear" 
             style={{ width: `${tickProgress}%` }}
           />
         </div>
