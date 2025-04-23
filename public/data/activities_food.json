@@ -1,83 +1,571 @@
 {
-    "🍕": {
-      "title": "Pizza",
-      "category": "food",
-      "requiredXpLevel": 1,
-      "effects": {
-        "hunger": 25,
-        "energy": 5,
-        "mood": 5,
-        "xp": 3
-      },
-      "descriptions": [
-        "{blobbiName} snackt Pizza, bester Tag ever!",
-        "Pizza-Party bei {blobbiName} zu Hause!",
-        "{blobbiName} gönnt sich ne große Pizza!"
-      ]
+  "🍕": {
+    "title": "Pizza",
+    "category": "food",
+    "requiredXpLevel": 1,
+    "effects": {
+      "hunger": 25,
+      "energy": 5,
+      "mood": 5,
+      "hygiene": -10,
+      "xp": 3
     },
-    "🍔": {
-      "title": "Burger",
-      "category": "food",
-      "requiredXpLevel": 2,
-      "effects": {
-        "hunger": 30,
-        "energy": 5,
-        "mood": 10,
-        "xp": 4
-      },
-      "descriptions": [
-        "{blobbiName} gönnt sich den Mega-Burger!",
-        "Fetter Burger landet bei {blobbiName}!",
-        "{blobbiName} liebt fettiges Fast Food!"
-      ]
+    "descriptions": [
+      "{blobbiName} snackt Pizza, bester Tag ever!",
+      "Pizza-Party bei {blobbiName} zu Hause!",
+      "{blobbiName} gönnt sich ne große Pizza!"
+    ]
+  },
+
+  "🍎": {
+    "title": "Apfel",
+    "category": "food",
+    "requiredXpLevel": 1,
+    "effects": {
+      "hunger": 10,
+      "energy": 5,
+      "mood": 2,
+      "hygiene": 2,
+      "xp": 2
     },
-    "🍩": {
-      "title": "Donut",
-      "category": "food",
-      "requiredXpLevel": 2,
-      "effects": {
-        "hunger": 5,
-        "energy": 15,
-        "mood": 10,
-        "xp": 3
-      },
-      "descriptions": [
-        "Zuckerflash: Donut-Power für {blobbiName}!",
-        "{blobbiName} snackt nen bunten Donut!",
-        "{blobbiName} liebt Donuts, so süß!"
-      ]
+    "descriptions": [
+      "An apple a day – {blobbiName} ist dabei!",
+      "{blobbiName} mag’s knackig – Apfel-Time!",
+      "Gesund snacken mit {blobbiName}!"
+    ]
+  },
+
+  "🍔": {
+    "title": "Burger",
+    "category": "food",
+    "requiredXpLevel": 2,
+    "effects": {
+      "hunger": 30,
+      "energy": 5,
+      "mood": 10,
+      "hygiene": -15,
+      "xp": 4
     },
-    "🍎": {
-      "title": "Apfel",
-      "category": "food",
-      "requiredXpLevel": 1,
-      "effects": {
-        "hunger": 10,
-        "energy": 5,
-        "mood": 2,
-        "xp": 2
-      },
-      "descriptions": [
-        "An apple a day – {blobbiName} ist dabei!",
-        "{blobbiName} mag’s knackig – Apfel-Time!",
-        "Gesund snacken mit {blobbiName}!"
-      ]
+    "descriptions": [
+      "{blobbiName} gönnt sich den Mega-Burger!",
+      "Fetter Burger landet bei {blobbiName}!",
+      "{blobbiName} liebt fettiges Fast Food!"
+    ]
+  },
+
+  "🍫": {
+    "title": "Schokolade",
+    "category": "food",
+    "requiredXpLevel": 2,
+    "effects": {
+      "hunger": 5,
+      "energy": 15,
+      "mood": 10,
+      "hygiene": -5,
+      "xp": 3
     },
-    "🍫": {
-      "title": "Schokolade",
-      "category": "food",
-      "requiredXpLevel": 2,
-      "effects": {
-        "hunger": 5,
-        "energy": 15,
-        "mood": 10,
-        "xp": 3
-      },
-      "descriptions": [
-        "{blobbiName} schmilzt dahin – Schoki-Time!",
-        "Schokoliebe pur bei {blobbiName}!",
-        "{blobbiName} snackt wie ne Schokotafel!"
-      ]
-    }
+    "descriptions": [
+      "{blobbiName} schmilzt dahin – Schoki-Time!",
+      "Schokoliebe pur bei {blobbiName}!",
+      "{blobbiName} snackt wie ne Schokotafel!"
+    ]
+  },
+
+  "🍩": {
+    "title": "Donut",
+    "category": "food",
+    "requiredXpLevel": 3,
+    "effects": {
+      "hunger": 5,
+      "energy": 15,
+      "mood": 10,
+      "hygiene": -5,
+      "xp": 3
+    },
+    "descriptions": [
+      "Zuckerflash: Donut-Power für {blobbiName}!",
+      "{blobbiName} snackt nen bunten Donut!",
+      "{blobbiName} liebt Donuts, so süß!"
+    ]
+  },
+
+  "🍝": {
+    "title": "Spaghetti",
+    "category": "food",
+    "requiredXpLevel": 3,
+    "effects": {
+      "hunger": 25,
+      "energy": 8,
+      "mood": 7,
+      "hygiene": -15,
+      "xp": 4
+    },
+    "descriptions": [
+      "{blobbiName} schlürft Spaghetti, wie ein Profi-Italiener!",
+      "Spaghetti-Chaos: {blobbiName} liebt's lecker und messy!",
+      "Nudelschlacht? {blobbiName} ist sofort dabei!"
+    ]
+  },
+  "🍗": {
+    "title": "Chicken Wings",
+    "category": "food",
+    "requiredXpLevel": 4,
+    "effects": {
+      "hunger": 20,
+      "energy": 10,
+      "mood": 8,
+      "hygiene": -20,
+      "xp": 5
+    },
+    "descriptions": [
+      "Fingerfood-Time! {blobbiName} snackt Chicken Wings.",
+      "Knusprig, lecker und klebrig: Chicken Wings für {blobbiName}.",
+      "{blobbiName} futtert Wings wie ein Champion!"
+    ]
+  },
+  "🍦": {
+    "title": "Eiscreme",
+    "category": "food",
+    "requiredXpLevel": 4,
+    "effects": {
+      "hunger": 8,
+      "energy": 10,
+      "mood": 15,
+      "hygiene": -5,
+      "xp": 3
+    },
+    "descriptions": [
+      "{blobbiName} gönnt sich eine große Kugel Eis!",
+      "Eiszeit! {blobbiName} schleckt Vanille, Schoko, Erdbeer gleichzeitig!",
+      "{blobbiName} lässt Eiscreme-Herzen schmelzen!"
+    ]
+  },
+  "🌭": {
+    "title": "Hotdog",
+    "category": "food",
+    "requiredXpLevel": 5,
+    "effects": {
+      "hunger": 20,
+      "energy": 7,
+      "mood": 6,
+      "hygiene": -10,
+      "xp": 4
+    },
+    "descriptions": [
+      "{blobbiName} beißt herzhaft in den Hotdog!",
+      "Hotdog-Action bei {blobbiName}: Senf und Ketchup inklusive!",
+      "{blobbiName} feiert Hotdog-Tag mit extra viel Soße!"
+    ]
+  },
+  "🥗": {
+    "title": "Salat",
+    "category": "food",
+    "requiredXpLevel": 5,
+    "effects": {
+      "hunger": 15,
+      "energy": 10,
+      "mood": 3,
+      "hygiene": 5,
+      "xp": 3
+    },
+    "descriptions": [
+      "{blobbiName} snackt knackigen Salat – richtig gesund!",
+      "Gesunde Pause! {blobbiName} genießt frischen Salat!",
+      "{blobbiName} fühlt sich grün und gesund!"
+    ]
+  },
+  "🥞": {
+    "title": "Pfannkuchen",
+    "category": "food",
+    "requiredXpLevel": 6,
+    "effects": {
+      "hunger": 20,
+      "energy": 12,
+      "mood": 10,
+      "hygiene": -10,
+      "xp": 4
+    },
+    "descriptions": [
+      "{blobbiName} stapelt Pfannkuchen bis zur Decke!",
+      "Pfannkuchen-Party! {blobbiName} liebt's fluffig und süß!",
+      "{blobbiName} jongliert Pfannkuchen direkt in den Mund!"
+    ]
+  },
+  "🌮": {
+    "title": "Tacos",
+    "category": "food",
+    "requiredXpLevel": 6,
+    "effects": {
+      "hunger": 25,
+      "energy": 8,
+      "mood": 12,
+      "hygiene": -15,
+      "xp": 5
+    },
+    "descriptions": [
+      "Taco-Time! {blobbiName} lädt zur Fiesta ein!",
+      "{blobbiName} liebt Tacos – Hauptsache voll und lecker!",
+      "Vorsicht, es wird messy: {blobbiName} isst Tacos mit Leidenschaft!"
+    ]
+  },
+  "🍓": {
+    "title": "Erdbeeren",
+    "category": "food",
+    "requiredXpLevel": 7,
+    "effects": {
+      "hunger": 8,
+      "energy": 5,
+      "mood": 8,
+      "hygiene": 3,
+      "xp": 2
+    },
+    "descriptions": [
+      "{blobbiName} snackt frische Erdbeeren – lecker und gesund!",
+      "Süße Vitaminbomben für {blobbiName}.",
+      "{blobbiName} nascht Erdbeeren direkt vom Feld (fast)."
+    ]
+  },
+
+  "🍉": {
+    "title": "Wassermelone",
+    "category": "food",
+    "requiredXpLevel": 7,
+    "effects": {
+      "hunger": 10,
+      "energy": 5,
+      "mood": 5,
+      "hygiene": 2,
+      "xp": 2
+    },
+    "descriptions": [
+      "{blobbiName} futtert Wassermelone, bis die Kerne fliegen!",
+      "{blobbiName} veranstaltet Wassermelonen-Weitspuck-Wettbewerb!",
+      "Melonen-Action: {blobbiName} gräbt sein Gesicht tief ins saftige Glück!"
+    ]
+  },
+
+  "🍪": {
+    "title": "Plätzchen",
+    "category": "food",
+    "requiredXpLevel": 8,
+    "effects": {
+      "hunger": 5,
+      "energy": 10,
+      "mood": 10,
+      "hygiene": -5,
+      "xp": 3
+    },
+    "descriptions": [
+      "{blobbiName} backt Plätzchen schneller als das Krümelmonster essen kann!",
+      "Frisch gebacken, halb gegessen – {blobbiName}s Plätzchen sind legendär!",
+      "Keks-Alarm! {blobbiName} verwandelt die Küche in eine Backstube!"
+    ]
+  },
+
+  "🍰": {
+    "title": "Kuchen",
+    "category": "food",
+    "requiredXpLevel": 8,
+    "effects": {
+      "hunger": 15,
+      "energy": 10,
+      "mood": 12,
+      "hygiene": -10,
+      "xp": 4
+    },
+    "descriptions": [
+      "{blobbiName} verspeist Kuchenberge, als wäre Geburtstag – jeden Tag!",
+      "Kuchenattacke! {blobbiName} kennt kein Stück-Limit!",
+      "{blobbiName} backt einen Kuchen, der sogar Oma neidisch macht!"
+    ]
+  },
+
+  "🍵": {
+    "title": "Tee",
+    "category": "food",
+    "requiredXpLevel": 9,
+    "effects": {
+      "hunger": 5,
+      "energy": 5,
+      "mood": 5,
+      "hygiene": 2,
+      "xp": 2
+    },
+    "descriptions": [
+      "{blobbiName} schlürft Tee wie ein Zen-Meister!",
+      "{blobbiName} hält seine Teetasse elegant – fast jedenfalls!",
+      "Teeparty bei {blobbiName}: Kekse, Klatsch und Kamille!"
+    ]
+  },
+
+  "🍌": {
+    "title": "Banane",
+    "category": "food",
+    "requiredXpLevel": 9,
+    "effects": {
+      "hunger": 8,
+      "energy": 10,
+      "mood": 4,
+      "hygiene": 2,
+      "xp": 2
+    },
+    "descriptions": [
+      "{blobbiName} snackt Banane – perfekte Energie!",
+      "Affenspaß! {blobbiName} mag Bananen total.",
+      "{blobbiName} ist bananastark drauf!"
+    ]
+  },
+
+  "🥪": {
+    "title": "Sandwich",
+    "category": "food",
+    "requiredXpLevel": 10,
+    "effects": {
+      "hunger": 15,
+      "energy": 5,
+      "mood": 6,
+      "hygiene": -5,
+      "xp": 3
+    },
+    "descriptions": [
+      "{blobbiName} stapelt Sandwiches bis zur Zimmerdecke!",
+      "{blobbiName} baut Sandwich-Türme – Jenga zum Essen!",
+      "Achtung: {blobbiName}s Sandwich enthält mindestens 23 Zutaten!"
+    ]
+  },
+
+  "🥤": {
+    "title": "Shake",
+    "category": "food",
+    "requiredXpLevel": 10,
+    "effects": {
+      "hunger": 5,
+      "energy": 15,
+      "mood": 10,
+      "hygiene": -5,
+      "xp": 3
+    },
+    "descriptions": [
+      "{blobbiName} schlürft den dicksten Shake der Galaxie!",
+      "{blobbiName} mixt Shakes mit Superheldenpower – Geheimrezept inklusive!",
+      "Shake-Alarm! {blobbiName} saugt schneller als sein Schatten!"
+    ]
+  },
+
+  "🍹": {
+    "title": "Cocktail",
+    "category": "food",
+    "requiredXpLevel": 11,
+    "effects": {
+      "hunger": 5,
+      "energy": 10,
+      "mood": 15,
+      "hygiene": -5,
+      "xp": 4
+    },
+    "descriptions": [
+      "{blobbiName} schlürft Cocktails mit Schirmchen – Sommermodus aktiviert!",
+      "{blobbiName} mixt geheime Zutaten für den ultimativen Frucht-Boost!",
+      "Happy Hour! {blobbiName} ist Barkeeper und bester Kunde zugleich."
+    ]
+  },
+
+  "🍇": {
+    "title": "Weintrauben",
+    "category": "food",
+    "requiredXpLevel": 12,
+    "effects": {
+      "hunger": 6,
+      "energy": 8,
+      "mood": 6,
+      "hygiene": 3,
+      "xp": 2
+    },
+    "descriptions": [
+      "{blobbiName} futtert süße Weintrauben!",
+      "{blobbiName} pflückt Trauben wie ein Kaiser!",
+      "Traubenzeit: {blobbiName} lässt es sich schmecken!"
+    ]
+  },
+
+  "🥨": {
+    "title": "Brezel",
+    "category": "food",
+    "requiredXpLevel": 13,
+    "effects": {
+      "hunger": 15,
+      "energy": 6,
+      "mood": 5,
+      "hygiene": -3,
+      "xp": 3
+    },
+    "descriptions": [
+      "{blobbiName} snackt frische Brezel – lecker!",
+      "Salzig, knusprig, gut: Brezelzeit für {blobbiName}.",
+      "{blobbiName} liebt es traditionell bayrisch!"
+    ]
+  },
+
+  "🥕": {
+    "title": "Karotte",
+    "category": "food",
+    "requiredXpLevel": 14,
+    "effects": {
+      "hunger": 8,
+      "energy": 7,
+      "mood": 3,
+      "hygiene": 4,
+      "xp": 2
+    },
+    "descriptions": [
+      "{blobbiName} knabbert knackige Karotten!",
+      "{blobbiName} sieht jetzt garantiert besser!",
+      "Karottenpower aktiviert bei {blobbiName}!"
+    ]
+  },
+
+  "🥑": {
+    "title": "Avocado",
+    "category": "food",
+    "requiredXpLevel": 15,
+    "effects": {
+      "hunger": 10,
+      "energy": 5,
+      "mood": 8,
+      "hygiene": 2,
+      "xp": 3
+    },
+    "descriptions": [
+      "{blobbiName} verwandelt Avocados in grünes Gold!",
+      "Hipster-Alarm! {blobbiName} macht den weltbesten Avocado-Toast.",
+      "{blobbiName} isst Avocados so lässig, selbst Instagram ist neidisch!"
+    ]
+  },
+
+  "🥥": {
+    "title": "Kokosnuss",
+    "category": "food",
+    "requiredXpLevel": 16,
+    "effects": {
+      "hunger": 15,
+      "energy": 10,
+      "mood": 12,
+      "hygiene": -5,
+      "xp": 4
+    },
+    "descriptions": [
+      "{blobbiName} knackt die Kokosnuss mit bloßen Händen – Urwald-Style!",
+      "{blobbiName} schlürft Kokoswasser wie ein Inselbewohner!",
+      "Tropenalarm: {blobbiName} spielt Kokos-Bowling im Wohnzimmer!"
+    ]
+  },
+
+  "🥭": {
+    "title": "Mango",
+    "category": "food",
+    "requiredXpLevel": 17,
+    "effects": {
+      "hunger": 10,
+      "energy": 8,
+      "mood": 10,
+      "hygiene": 3,
+      "xp": 3
+    },
+    "descriptions": [
+      "{blobbiName} schlürft süße Mango wie im Tropenurlaub!",
+      "Mango-Madness! {blobbiName} hat klebrige Finger und beste Laune.",
+      "{blobbiName} feiert Mangoparty – exotisch, klebrig, lecker!"
+    ]
+  },
+
+  "🥩": {
+    "title": "Steak",
+    "category": "food",
+    "requiredXpLevel": 18,
+    "effects": {
+      "hunger": 30,
+      "energy": 15,
+      "mood": 12,
+      "hygiene": -10,
+      "xp": 5
+    },
+    "descriptions": [
+      "{blobbiName} gönnt sich ein saftiges Steak!",
+      "{blobbiName} genießt sein Steak wie ein Profi!",
+      "Grillabend deluxe mit {blobbiName}!"
+    ]
+  },
+
+  "🍤": {
+    "title": "Garnelen",
+    "category": "food",
+    "requiredXpLevel": 19,
+    "effects": {
+      "hunger": 20,
+      "energy": 10,
+      "mood": 8,
+      "hygiene": -15,
+      "xp": 4
+    },
+    "descriptions": [
+      "{blobbiName} verspeist Meerestiere wie ein hungriger Wal!",
+      "Vorsicht, Garnelen-Invasion! {blobbiName} rettet den Tag (und seinen Magen)!",
+      "{blobbiName} taucht ab ins Meer – Garnelen-Snack deluxe!"
+    ]
+  },
+
+  "🥩": {
+    "title": "Steak",
+    "category": "food",
+    "requiredXpLevel": 20,
+    "effects": {
+      "hunger": 30,
+      "energy": 15,
+      "mood": 12,
+      "hygiene": -10,
+      "xp": 5
+    },
+    "descriptions": [
+      "{blobbiName} gönnt sich ein saftiges Steak!",
+      "{blobbiName} genießt sein Steak wie ein Profi!",
+      "Grillabend deluxe mit {blobbiName}!"
+    ]
+  },
+
+  "🥚": {
+    "title": "Ei",
+    "category": "food",
+    "requiredXpLevel": 21,
+    "effects": {
+      "hunger": 10,
+      "energy": 8,
+      "mood": 4,
+      "hygiene": -5,
+      "xp": 2
+    },
+    "descriptions": [
+      "{blobbiName} mampft ein Frühstücksei!",
+      "{blobbiName} ist Eier-Fan, egal wie gekocht!",
+      "Eier-Power zum Frühstück für {blobbiName}!"
+    ]
+  },
+
+  "🥒": {
+    "title": "Gurke",
+    "category": "food",
+    "requiredXpLevel": 22,
+    "effects": {
+      "hunger": 8,
+      "energy": 5,
+      "mood": 3,
+      "hygiene": 5,
+      "xp": 2
+    },
+    "descriptions": [
+      "{blobbiName} snackt Gurke, schön erfrischend!",
+      "Grüne Energie für {blobbiName}: Gurkenzeit!",
+      "{blobbiName} knabbert frische Gurkenscheiben!"
+    ]
   }
-  
+
+}

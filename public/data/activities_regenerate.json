@@ -4,10 +4,10 @@
       "category": "regenerate",
       "requiredXpLevel": 1,
       "effects": {
-        "hunger": -5,
-        "energy": 40,
-        "mood": 5,
-        "xp": 2
+        "hunger": -1,
+        "energy": 3,
+        "mood": 2,
+        "xp": 0
       },
       "descriptions": [
         "{blobbiName} rollt sich in die Decke wie ein Burrito!",
@@ -20,10 +20,10 @@
       "category": "regenerate",
       "requiredXpLevel": 1,
       "effects": {
-        "hunger": -2,
-        "energy": 20,
-        "mood": 2,
-        "xp": 1
+        "hunger": -1,
+        "energy": 2,
+        "mood": 1,
+        "xp": 0
       },
       "descriptions": [
         "{blobbiName} gönnt sich ein Turbo-Nap!",
@@ -37,8 +37,8 @@
       "requiredXpLevel": 2,
       "effects": {
         "hunger": -1,
-        "energy": 10,
-        "mood": 10,
+        "energy": 1,
+        "mood": 2,
         "xp": 1
       },
       "descriptions": [

@@ -4,7 +4,7 @@
       "category": "hygiene",
       "requiredXpLevel": 1,
       "effects": {
-        "hygiene": 50,
+        "hygiene": 20,
         "mood": 5,
         "energy": 0,
         "xp": 3
@@ -20,7 +20,7 @@
       "category": "hygiene",
       "requiredXpLevel": 1,
       "effects": {
-        "hygiene": 30,
+        "hygiene": 50,
         "mood": 2,
         "energy": 0,
         "xp": 2
@@ -36,7 +36,7 @@
       "category": "hygiene",
       "requiredXpLevel": 2,
       "effects": {
-        "hygiene": 40,
+        "hygiene": 100,
         "mood": 10,
         "energy": 0,
         "xp": 3

@@ -4,79 +4,98 @@
     "category": "entertainment",
     "requiredXpLevel": 1,
     "avoidIf": { "energy": "<20", "hunger": "<20" },
-    "effects": { "mood": 20, "hunger": -5, "energy": -10, "xp": 4 },
+    "effects": { "mood": 4, "hunger": -2, "energy": -3, "hygiene": -5, "xp": 2 },
     "descriptions": [
       "{blobbiName} spielt bis der Controller glüht!",
       "Level-Up für {blobbiName} – und wie!",
       "{blobbiName} besiegt den Endboss mit verbundenen Augen!"
     ]
   },
+
   "⚽️": {
     "title": "Fussball",
     "category": "entertainment",
     "requiredXpLevel": 1,
     "avoidIf": { "energy": "<30", "hunger": "<25" },
-    "effects": { "mood": 25, "hunger": -10, "energy": -20, "xp": 5 },
+    "effects": { "mood": 6, "hunger": -4, "energy": -5, "hygiene": -50, "xp": 3 },
     "descriptions": [
       "{blobbiName} kickt wie Messi!",
       "Fußballprofi {blobbiName} am Start!",
       "{blobbiName} trainiert für die WM!"
     ]
   },
+
   "🧃": {
     "title": "Saft-Challenge",
     "category": "entertainment",
     "requiredXpLevel": 1,
     "avoidIf": { "hunger": "<10" },
-    "effects": { "mood": 15, "hunger": -5, "energy": -5, "xp": 2 },
+    "effects": { "mood": 3, "hunger": -1, "energy": -2, "hygiene": -10, "xp": 1 },
     "descriptions": [
       "{blobbiName} mixt Apfelsaft mit Senf. Warum? Weil er's kann!",
       "Saft-Explosion! {blobbiName} trinkt mit Strohhalm aus dem Mixer!",
-      "{blobbiName} erfindet das Getränk 'Blobbicino'."
+      "{blobbiName} erfindet das Getränk '{blobbiName}cino'."
     ]
   },
+
   "🎤": {
     "title": "Duschkonzert",
     "category": "entertainment",
     "requiredXpLevel": 1,
     "avoidIf": { "mood": "<25" },
-    "effects": { "mood": 20, "energy": -6, "xp": 2 },
+    "effects": { "mood": 4, "energy": -2, "hygiene": 15, "xp": 1 },
     "descriptions": [
       "Echooooooo! {blobbiName} singt wie ein Rockstar in der Dusche!",
       "{blobbiName} trifft zwar keinen Ton – aber alle Herzen!",
       "Duschkabine = Bühne. {blobbiName} = Legende."
     ]
   },
+
   "🧻": {
     "title": "Toilettenpapier-Golf",
     "category": "entertainment",
     "requiredXpLevel": 1,
     "avoidIf": { "energy": "<15" },
-    "effects": { "mood": 16, "energy": -5, "xp": 2 },
+    "effects": { "mood": 3, "energy": -1, "hygiene": -5, "xp": 1 },
     "descriptions": [
       "{blobbiName} rollt das Papier, als wär's ein Pro-Golfer!",
       "Loch-in-eins ins Katzenklo! {blobbiName} jubelt wie ein Profi.",
       "Wind? Schräglage? Kein Problem für {blobbiName} the Golfer!"
     ]
   },
+
+  "🏓": {
+    "title": "Tischtennis",
+    "category": "entertainment",
+    "requiredXpLevel": 2,
+    "avoidIf": { "energy": "<40" },
+    "effects": { "mood": 7, "energy": -6, "hygiene": -25, "xp": 6 },
+    "descriptions": [
+      "{blobbiName} spielt gegen sich selbst – und gewinnt jedes Mal!",
+      "Ping, Pong, Boom! {blobbiName} hat den ultimativen Spin drauf!",
+      "{blobbiName} schlägt den Rekord im Wohnzimmer-Pingpong!"
+    ]
+  },
+
   "🎸": {
     "title": "Luftgitarre",
     "category": "entertainment",
     "requiredXpLevel": 2,
     "avoidIf": { "energy": "<20", "mood": "<30" },
-    "effects": { "mood": 20, "hunger": -4, "energy": -6, "xp": 3 },
+    "effects": { "mood": 5, "hunger": -2, "energy": -3, "hygiene": -10, "xp": 2 },
     "descriptions": [
       "{blobbiName} rockt härter als eine Kartoffel im Mixer!",
       "Luftgitarren-Konzert: Eintritt frei, Chaos garantiert!",
       "Achtung, {blobbiName} spielt Solos, die man nur fühlen, nicht hören kann!"
     ]
   },
+
   "📖": {
     "title": "Hausaufgaben",
     "category": "entertainment",
-    "requiredXpLevel": 2,
+    "requiredXpLevel": 3,
     "avoidIf": { "energy": "<30", "mood": "<40" },
-    "effects": { "mood": 10, "hunger": -3, "energy": -5, "xp": 3 },
+    "effects": { "mood": 2, "hunger": -1, "energy": -2, "hygiene": -1, "xp": 3 },
     "descriptions": [
       "{blobbiName} schreibt heute mit beiden Händen gleichzeitig – Lehrer verwirren inklusive!",
       "Mathemonster incoming: {blobbiName} macht sie fertig!",
@@ -85,100 +104,461 @@
       "Wissen ist Macht – und {blobbiName} fühlt sich heute wie ein Superheld."
     ]
   },
+
   "🎭": {
     "title": "Theater",
     "category": "entertainment",
-    "requiredXpLevel": 2,
+    "requiredXpLevel": 3,
     "avoidIf": { "mood": "<30", "energy": "<30" },
-    "effects": { "mood": 18, "hunger": -3, "energy": -5, "xp": 3 },
+    "effects": { "mood": 4, "hunger": -1, "energy": -2, "hygiene": -5, "xp": 2 },
     "descriptions": [
       "Drama-King {blobbiName}: jede Szene endet mit Chaos!",
       "Vorsicht, heute spielt {blobbiName} Romeo und Julia gleichzeitig!",
       "Bühnen-Star {blobbiName}: Kein Drehbuch ist vor ihm sicher!"
     ]
   },
+
+  "🎣": {
+    "title": "Angeln",
+    "category": "entertainment",
+    "requiredXpLevel": 4,
+    "avoidIf": { "energy": "<30" },
+    "effects": { "mood": 5, "energy": -4, "hygiene": -10, "xp": 5 },
+    "descriptions": [
+      "{blobbiName} angelt erfolgreich Socken aus dem Wäschekorb!",
+      "Fang des Tages: eine Dose Kekse für {blobbiName}!",
+      "{blobbiName} wartet geduldig – und zieht ein Kuscheltier an Land!"
+    ]
+  },
+
   "🎯": {
     "title": "Zimmer-Zielwerfen",
     "category": "entertainment",
-    "requiredXpLevel": 2,
+    "requiredXpLevel": 4,
     "avoidIf": { "energy": "<20" },
-    "effects": { "mood": 22, "energy": -8, "xp": 3 },
+    "effects": { "mood": 4, "energy": -2, "hygiene": -5, "xp": 2 },
     "descriptions": [
       "{blobbiName} trifft den Papierkorb... mit verbundenen Augen!",
       "Alles ist Zielscheibe – sogar die Sockenschublade!",
       "{blobbiName} gewinnt gegen sich selbst mit einem Trickwurf über die Schulter."
     ]
   },
+
   "🐸": {
     "title": "Froschsprung-Contest",
     "category": "entertainment",
-    "requiredXpLevel": 2,
+    "requiredXpLevel": 5,
     "avoidIf": { "energy": "<20" },
-    "effects": { "mood": 20, "energy": -8, "xp": 3 },
+    "effects": { "mood": 4, "energy": -3, "hygiene": -10, "xp": 2 },
     "descriptions": [
       "{blobbiName} springt durchs Zimmer und quakt dabei!",
       "Rekord: 8 Hüpfer, 1 Schrei, 0 Aufprälle!",
       "Frosch-Champion {blobbiName} erfindet den Doppelsalto-Krötenkick!"
     ]
   },
+
   "👾": {
     "title": "Pixelmonster jagen",
     "category": "entertainment",
-    "requiredXpLevel": 2,
+    "requiredXpLevel": 5,
     "avoidIf": { "energy": "<20", "hunger": "<10" },
-    "effects": { "mood": 22, "energy": -10, "hunger": -5, "xp": 4 },
+    "effects": { "mood": 5, "energy": -4, "hunger": -2, "hygiene": -10, "xp": 3 },
     "descriptions": [
       "{blobbiName} besiegt 17 Pixelmonster in unter 60 Sekunden!",
       "Mit bloßem Blick glitcht {blobbiName} durchs Level!",
       "{blobbiName} sammelt Münzen, Bonuspunkte und Lob von der KI!"
     ]
   },
+
+  "🚗": {
+    "title": "Matchbox-Rennen",
+    "category": "entertainment",
+    "requiredXpLevel": 6,
+    "avoidIf": { "energy": "<20" },
+    "effects": { "mood": 4, "energy": -3, "hygiene": -15, "xp": 3 },
+    "descriptions": [
+      "{blobbiName} lässt die Matchbox-Autos durchs Zimmer rasen!",
+      "Rennstrecke Wohnzimmer: {blobbiName} liefert sich heiße Rennen!",
+      "{blobbiName} baut spektakuläre Rampen für die Mini-Renner!"
+    ]
+  },
+
   "🕺": {
     "title": "Breakdance",
     "category": "entertainment",
-    "requiredXpLevel": 3,
+    "requiredXpLevel": 6,
     "avoidIf": { "energy": "<25", "mood": "<30" },
-    "effects": { "mood": 30, "energy": -18, "hunger": -6, "xp": 4 },
+    "effects": { "mood": 6, "energy": -6, "hunger": -2, "hygiene": -20, "xp": 3 },
     "descriptions": [
       "{blobbiName} dreht sich wie ein Beyblade im Wohnzimmer!",
       "Kopfstand? Kein Ding für {blobbiName} – Style first!",
       "{blobbiName} bringt den Boden zum Beben – mit einem Move, den selbst YouTube nicht kennt!"
     ]
   },
+
   "🥋": {
     "title": "Ninja-Training",
     "category": "entertainment",
-    "requiredXpLevel": 3,
+    "requiredXpLevel": 7,
     "avoidIf": { "energy": "<25" },
-    "effects": { "mood": 25, "energy": -15, "xp": 4 },
+    "effects": { "mood": 5, "energy": -5, "hygiene": -20, "xp": 3 },
     "descriptions": [
       "{blobbiName} schleicht sich durchs Zimmer wie ein Schatten – fast.",
       "Ninja-Modus aktiviert: {blobbiName} macht geheime Salto-Übungen!",
       "{blobbiName} trainiert mit einer Socke als Wurfstern!"
     ]
   },
+
   "🚀": {
     "title": "Raketenbau",
     "category": "entertainment",
-    "requiredXpLevel": 4,
+    "requiredXpLevel": 7,
     "avoidIf": { "energy": "<30", "mood": "<30" },
-    "effects": { "mood": 18, "energy": -10, "xp": 5 },
+    "effects": { "mood": 5, "energy": -6, "hygiene": -15, "xp": 4 },
     "descriptions": [
       "{blobbiName} baut aus Cola und Mentos eine Mondrakete!",
       "Raketenstart! {blobbiName} fliegt in seiner Fantasie zur ISS!",
       "{blobbiName} testet, ob man mit Kaugummi Antrieb erzeugen kann."
     ]
   },
+
+  "🎈": {
+    "title": "Ballon-Tanz",
+    "category": "entertainment",
+    "requiredXpLevel": 8,
+    "avoidIf": { "energy": "<20", "hunger": "<10" },
+    "effects": { "mood": 6, "energy": -4, "hygiene": -10, "xp": 3 },
+    "descriptions": [
+      "{blobbiName} tanzt mit Luftballons – und verliert!",
+      "{blobbiName} macht den Ballon-Breakdance – und platzt!",
+      "{blobbiName} jongliert mit Ballons – und hat Spaß!"
+    ]
+  },
+
   "🎢": {
     "title": "Kopf-Karussell",
     "category": "entertainment",
-    "requiredXpLevel": 4,
+    "requiredXpLevel": 8,
     "avoidIf": { "energy": "<30" },
-    "effects": { "mood": 28, "energy": -15, "xp": 5 },
+    "effects": { "mood": 5, "energy": -6, "xp": 4 },
     "descriptions": [
       "{blobbiName} stellt sich 10x im Kreis – dann Matheaufgaben!",
       "Achterbahn im Kopf? Kein Problem für {blobbiName}!",
       "{blobbiName} denkt rückwärts und spricht dabei in Reimen – okay?"
     ]
+  },
+
+  "🧪": {
+    "title": "Experiment",
+    "category": "entertainment",
+    "requiredXpLevel": 9,
+    "avoidIf": { "energy": "<40" },
+    "effects": { "mood": 5, "energy": -7, "hygiene": -25, "xp": 5 },
+    "descriptions": [
+      "{blobbiName} testet, wie hoch Backpulver-Vulkan ausbricht!",
+      "Chemie oder Magie? {blobbiName} entdeckt Geheimnisse der Küche!",
+      "{blobbiName} ist verrückter Professor und Laborratte in einem!"
+    ]
+  },
+
+  "🧩": {
+    "title": "Puzzle",
+    "category": "entertainment",
+    "requiredXpLevel": 9,
+    "avoidIf": { "energy": "<20", "hunger": "<10" },
+    "effects": { "mood": 4, "energy": -3, "hygiene": -5, "xp": 2 },
+    "descriptions": [
+      "{blobbiName} puzzelt mit verbundenen Augen – und findet das Bild!",
+      "{blobbiName} löst das Puzzle in Rekordzeit – und isst die Teile!",
+      "{blobbiName} hat das Puzzle erfunden – und das Chaos gleich mit!"
+    ]
+  },
+
+  "🎨": {
+    "title": "Farb-Chaos",
+    "category": "entertainment",
+    "requiredXpLevel": 10,
+    "avoidIf": { "energy": "<35" },
+    "effects": { "mood": 6, "energy": -5, "hygiene": -40, "xp": 6 },
+    "descriptions": [
+      "{blobbiName} malt abstrakte Kunst...auf sich selbst!",
+      "Farbexplosion! Zimmer wird zur Galerie des Wahnsinns.",
+      "{blobbiName} verwandelt sich in ein lebendes Kunstwerk!"
+    ]
+  },
+
+  "🌋": {
+    "title": "Lava-Spiel",
+    "category": "entertainment",
+    "requiredXpLevel": 10,
+    "avoidIf": { "energy": "<45" },
+    "effects": { "mood": 7, "energy": -8, "hygiene": -30, "xp": 7 },
+    "descriptions": [
+      "Der Boden ist Lava! {blobbiName} springt von Sofa zu Tisch!",
+      "{blobbiName} bezwingt die Lava mit epischen Sprüngen!",
+      "Heiße Füße? Kein Problem für {blobbiName}, den Lava-Meister!"
+    ]
+  },
+
+  "🧗‍♂️": {
+    "title": "Kletter-Challenge",
+    "category": "entertainment",
+    "requiredXpLevel": 11,
+    "avoidIf": { "energy": "<50" },
+    "effects": { "mood": 8, "energy": -9, "hygiene": -35, "xp": 8 },
+    "descriptions": [
+      "{blobbiName} erklimmt den höchsten Punkt im Zimmer!",
+      "{blobbiName} ist der König der Kletterer – und der Chaosmacher!",
+      "{blobbiName} findet den besten Platz für die nächste Socke!"
+    ]
+  },
+
+  "🚧": {
+    "title": "Zimmer-Hindernis-Parcours",
+    "category": "entertainment",
+    "requiredXpLevel": 11,
+    "avoidIf": { "energy": "<50" },
+    "effects": { "mood": 8, "energy": -10, "hygiene": -45, "xp": 8 },
+    "descriptions": [
+      "{blobbiName} verwandelt das Zimmer in Ninja Warrior!",
+      "Über Couch, unter Tisch – nichts stoppt {blobbiName}!",
+      "{blobbiName} bezwingt den Hindernis-Parcours in Rekordzeit!"
+    ]
+  },
+
+  "🎪": {
+    "title": "Zirkus-Show",
+    "category": "entertainment",
+    "requiredXpLevel": 12,
+    "avoidIf": { "energy": "<40" },
+    "effects": { "mood": 9, "energy": -7, "hygiene": -20, "xp": 9 },
+    "descriptions": [
+      "{blobbiName} jongliert mit allem, was er findet!",
+      "{blobbiName} macht den Zirkusdirektor – und das Chaos gleich mit!",
+      "{blobbiName} tanzt mit dem Staubsauger – und gewinnt!"
+    ]
+  },
+
+  "🎬": {
+    "title": "Filmdreh",
+    "category": "entertainment",
+    "requiredXpLevel": 12,
+    "avoidIf": { "energy": "<40" },
+    "effects": { "mood": 9, "energy": -7, "hygiene": -20, "xp": 9 },
+    "descriptions": [
+      "{blobbiName} dreht Actionfilme im Wohnzimmer!",
+      "Hollywood ruft an: {blobbiName} liefert Blockbuster!",
+      "Film ab! {blobbiName} als Hauptrolle und Regisseur zugleich."
+    ]
+  },
+
+  "🧟": {
+    "title": "Zombie-Jagd",
+    "category": "entertainment",
+    "requiredXpLevel": 13,
+    "avoidIf": { "energy": "<50" },
+    "effects": { "mood": 10, "energy": -9, "hygiene": -40, "xp": 10 },
+    "descriptions": [
+      "{blobbiName} rettet die Welt vor Zombie-Socken!",
+      "Zombie-Alarm im Kinderzimmer – {blobbiName} räumt auf!",
+      "{blobbiName} hat heute schon 32 Zombies vertrieben!"
+    ]
+  },
+
+  "🏄‍♂️": {
+    "title": "Matratzen-Surfen",
+    "category": "entertainment",
+    "requiredXpLevel": 13,
+    "avoidIf": { "energy": "<45" },
+    "effects": { "mood": 10, "energy": -8, "hygiene": -30, "xp": 11 },
+    "descriptions": [
+      "{blobbiName} surft die Riesenwelle mitten im Schlafzimmer!",
+      "Cowabunga! {blobbiName} ist Matratzen-Surfmeister!",
+      "Die Matratze ist sein Surfbrett, der Boden der Ozean – {blobbiName} rockt!"
+    ]
+  },
+
+  "🧙‍♂️": {
+    "title": "Magie-Show",
+    "category": "entertainment",
+    "requiredXpLevel": 14,
+    "avoidIf": { "energy": "<35" },
+    "effects": { "mood": 9, "energy": -6, "hygiene": -15, "xp": 12 },
+    "descriptions": [
+      "Abra Kadabra! {blobbiName} zaubert Kekse aus dem Nichts!",
+      "{blobbiName} verblüfft Publikum und Plüschtiere zugleich!",
+      "Die große {blobbiName}-Zaubershow endet mit begeistertem Applaus!"
+    ]
+  },
+
+  "🏎️": {
+    "title": "Rennfahrer",
+    "category": "entertainment",
+    "requiredXpLevel": 14,
+    "avoidIf": { "energy": "<55" },
+    "effects": { "mood": 12, "energy": -12, "hygiene": -50, "xp": 13 },
+    "descriptions": [
+      "{blobbiName} driftet um die Sofa-Kurve mit Vollgas!",
+      "Boxenstopp in Rekordzeit – {blobbiName} gewinnt das Rennen!",
+      "{blobbiName} fährt schneller als das Licht – zumindest gefühlt!"
+    ]
+  },
+
+  "🎳": {
+    "title": "Zimmer-Bowling",
+    "category": "entertainment",
+    "requiredXpLevel": 15,
+    "avoidIf": { "energy": "<40" },
+    "effects": { "mood": 11, "energy": -7, "hygiene": -25, "xp": 14 },
+    "descriptions": [
+      "Strike! {blobbiName} räumt alle Kuscheltiere ab!",
+      "{blobbiName} rollt die Sockenkugel wie ein echter Profi!",
+      "Die Pins fliegen – {blobbiName} ist Bowling-King!"
+    ]
+  },
+
+  "🚨": {
+    "title": "Geheimagent",
+    "category": "entertainment",
+    "requiredXpLevel": 15,
+    "avoidIf": { "energy": "<60" },
+    "effects": { "mood": 13, "energy": -10, "hygiene": -35, "xp": 15 },
+    "descriptions": [
+      "{blobbiName} schleicht durchs Zimmer – Mission geheim!",
+      "Codewort Gummibärchen: {blobbiName} im Einsatz!",
+      "{blobbiName} findet alle Hinweise – Agent des Jahres!"
+    ]
+  },
+
+  "🛸": {
+    "title": "Alien-Landung",
+    "category": "entertainment",
+    "requiredXpLevel": 16,
+    "avoidIf": { "energy": "<45" },
+    "effects": { "mood": 12, "energy": -8, "hygiene": -20, "xp": 16 },
+    "descriptions": [
+      "{blobbiName} begrüßt Aliens – Freundschaftsanfrage bestätigt!",
+      "UFO gelandet! {blobbiName} spricht fließend Alienisch!",
+      "{blobbiName} verhandelt erfolgreich Frieden mit Marsmenschen!"
+    ]
+  },
+
+  "🥷": {
+    "title": "Geheim-Ninja",
+    "category": "entertainment",
+    "requiredXpLevel": 16,
+    "avoidIf": { "energy": "<65" },
+    "effects": { "mood": 14, "energy": -12, "hygiene": -40, "xp": 17 },
+    "descriptions": [
+      "{blobbiName} verschwindet spurlos zwischen Sofa und Sessel!",
+      "Schattenangriff! {blobbiName} trainiert lautlos und unsichtbar.",
+      "Der Meister-Ninja {blobbiName} perfektioniert seine Tarnung!"
+    ]
+  },
+
+  "🐉": {
+    "title": "Drachenzähmen",
+    "category": "entertainment",
+    "requiredXpLevel": 17,
+    "avoidIf": { "energy": "<55" },
+    "effects": { "mood": 15, "energy": -9, "hygiene": -30, "xp": 18 },
+    "descriptions": [
+      "{blobbiName} zähmt Plüsch-Drachen mit links!",
+      "Feuerspucken üben? Für {blobbiName} kein Problem!",
+      "{blobbiName} fliegt auf seinem Drachen durchs Fantasieland!"
+    ]
+  },
+
+  "🤖": {
+    "title": "Roboterbau",
+    "category": "entertainment",
+    "requiredXpLevel": 17,
+    "avoidIf": { "energy": "<50" },
+    "effects": { "mood": 14, "energy": -7, "hygiene": -25, "xp": 19 },
+    "descriptions": [
+      "{blobbiName} konstruiert einen Roboter aus Schuhkartons!",
+      "Roboter tanzt? {blobbiName} hat’s programmiert!",
+      "{blobbiName} erschafft künstliche Intelligenz – fast jedenfalls!"
+    ]
+  },
+
+  "🦸‍♂️": {
+    "title": "Superheld spielen",
+    "category": "entertainment",
+    "requiredXpLevel": 18,
+    "avoidIf": { "energy": "<60" },
+    "effects": { "mood": 16, "energy": -11, "hygiene": -35, "xp": 20 },
+    "descriptions": [
+      "{blobbiName} rettet Kuscheltiere aus höchster Gefahr!",
+      "Cape sitzt, Held bereit – {blobbiName} rettet die Welt!",
+      "{blobbiName} fliegt in seiner Fantasie bis zum Mond!"
+    ]
+  },
+  
+  "🧙‍♀️": {
+    "title": "Hexen-Zauber",
+    "category": "entertainment",
+    "requiredXpLevel": 18,
+    "avoidIf": { "energy": "<55" },
+    "effects": { "mood": 15, "energy": -10, "hygiene": -30, "xp": 21 },
+    "descriptions": [
+      "{blobbiName} braut einen Zaubertrank aus allem, was er findet!",
+      "Hex Hex! {blobbiName} verwandelt sich in eine Hexe!",
+      "{blobbiName} zaubert mit einem Besen durch die Luft!"
+    ]
+  },
+
+  "🦄": {
+    "title": "Einhorn-Reiten",
+    "category": "entertainment",
+    "requiredXpLevel": 19,
+    "avoidIf": { "energy": "<65" },
+    "effects": { "mood": 17, "energy": -12, "hygiene": -40, "xp": 22 },
+    "descriptions": [
+      "{blobbiName} reitet auf einem Einhorn durch den Regenbogen!",
+      "Einhorn-Party! {blobbiName} tanzt mit magischen Wesen!",
+      "{blobbiName} entdeckt die Geheimnisse des Einhornlandes!"
+    ]
+  },
+
+  "🦕": {
+    "title": "Dino-Reiten",
+    "category": "entertainment",
+    "requiredXpLevel": 19,
+    "avoidIf": { "energy": "<60" },
+    "effects": { "mood": 18, "energy": -11, "hygiene": -35, "xp": 23 },
+    "descriptions": [
+      "{blobbiName} reitet auf einem Dino durch die Zeit!",
+      "Dino-Party! {blobbiName} tanzt mit Urzeitwesen!",
+      "{blobbiName} entdeckt die Geheimnisse der Dinosaurier!"
+    ]
+  },
+
+  "🦖": {
+    "title": "Dino-Zähmen",
+    "category": "entertainment",
+    "requiredXpLevel": 20,
+    "avoidIf": { "energy": "<55" },
+    "effects": { "mood": 19, "energy": -10, "hygiene": -30, "xp": 24 },
+    "descriptions": [
+      "{blobbiName} zähmt einen Dino mit einem Keks!",
+      "Dino-Party! {blobbiName} tanzt mit Urzeitwesen!",
+      "{blobbiName} entdeckt die Geheimnisse der Dinosaurier!"
+    ]
+  },
+
+  "💻": {
+    "title": "Programmieren",
+    "category": "entertainment",
+    "requiredXpLevel": 8,
+    "avoidIf": { "energy": "<35", "mood": "<30" },
+    "effects": { "mood": 8, "energy": -5, "hygiene": -5, "xp": 8 },
+    "descriptions": [
+      "{blobbiName} hackt den Geheimcode zu den Süßigkeiten!",
+      "Bug gefunden, Problem gelöst – {blobbiName} ist Programmier-Genie!",
+      "{blobbiName} entwickelt sein eigenes Spiel: {blobbiName}-Gotchi!"
+    ]
   }
+
 }
+
