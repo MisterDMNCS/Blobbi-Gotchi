@@ -41,12 +41,17 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
    * Dies ermöglicht eine Live-Aktualisierung auch bei automatischen Aktivitäten.
    */
   useEffect(() => {
+    // ⏱ Sofort laden
+    setHistory(loadActivityHistory());
+  
+    // 🔄 Danach regelmäßig aktualisieren
     const interval = setInterval(() => {
-      const data = loadActivityHistory();
-      setHistory(data);
+      setHistory(loadActivityHistory());
     }, 1000);
+  
     return () => clearInterval(interval);
   }, []);
+  
 
 
   return (
@@ -58,8 +63,7 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
         </div>
 
         {/* 📜 Verlauf der letzten Aktivitäten */}
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-2">Letzte Aktivitäten</h3>
+        <div className="mb-6 max-h-64 overflow-y-auto border rounded shadow-inner bg-white">
           {history.length === 0 ? (
             <div className="text-sm text-gray-500">
               Noch keine Aktivitäten gespeichert.
@@ -190,10 +194,9 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
             </div>
           </div>
 
-          {/* Spiel zurücksetzen */}
-          <div>
+          {/* Reset-Link */}
+          <div className="text mt-2">
             <button
-              className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
               onClick={() => {
                 const confirmed = window.confirm(
                   "Willst du wirklich das Spiel zurücksetzen?\nAlle Daten und der Verlauf werden dauerhaft gelöscht."
@@ -202,14 +205,18 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
                 localStorage.clear();
                 window.location.reload();
               }}
+              className="text-sm text-red-600 hover:text-red-800 underline underline-offset-2 transition"
             >
-              Spiel zurücksetzen
+              Neuen Blobbi starten (alle Daten löschen)
             </button>
           </div>
+         
         </div>
 
-        {/* ❌ Schließen-Button unten rechts */}
-        <div className="fixed bottom-4 right-4 z-50">
+        
+
+        {/* Schließen-Button unten rechts */}
+        <div className="fixed bottom-3 right-6 z-50">
           <button
             onClick={() => {
               const updated = { ...state, name: nameInput };
@@ -219,10 +226,10 @@ const MenuOverlay: React.FC<Props> = ({ state, setState, onClose }) => {
                 onClose();
               });
             }}
-            className="text-3xl p-2 bg-white rounded-full shadow-lg border hover:bg-gray-100 transition"
+            className="text-5xl p-2 transition"
             aria-label="Menü schließen"
           >
-            ❌
+            ×
           </button>
         </div>
       </div>

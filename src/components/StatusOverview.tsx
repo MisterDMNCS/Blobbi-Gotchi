@@ -1,57 +1,45 @@
 import React from "react";
 import { State } from "../types/types";
-
-
-function getBlobbiClockHHMMSS(state: State): string {
-  const now = Date.now();
-
-  if (!state.blobbiClockStartTimestamp || !state.settings?.timeFactor) {
-    return "00:00:00";
-  }
-
-  const elapsedRealMs = now - state.blobbiClockStartTimestamp;
-  const blobbiMinutesPassed = (elapsedRealMs / 1000 / 60) * state.settings.timeFactor;
-  const totalBlobbiMinutes = state.blobbiClockMinutes + blobbiMinutesPassed;
-
-  const totalSeconds = Math.floor(totalBlobbiMinutes * 60);
-  const h = Math.floor(totalSeconds / 3600) % 24;
-  const m = Math.floor((totalSeconds % 3600) / 60);
-  const s = totalSeconds % 60;
-
-  return `${h.toString().padStart(2, "0")}:${m
-    .toString()
-    .padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
-}
+import { getBlobbiClock } from "../utils/time"; // Zeitlogik für HH:MM:SS
 
 interface Props {
   state: State;
 }
 
 const StatusOverview: React.FC<Props> = ({ state }) => {
+  const clock = getBlobbiClock(state);
+  const hh = clock.hh.toString().padStart(2, "0");
+  const mm = clock.mm.toString().padStart(2, "0");
+  const ss = clock.ss.toString().padStart(2, "0");
+
   return (
     <div className="text-sm font-semibold">
+      {/* 🔠 Zeile 1: Name */}
       <div className="text-xl font-bold mb-1">{state.name}</div>
-      <div className="flex flex-col gap-y-1">
-        <div className="flex gap-x-4">
-          <div>🍔 {state.hunger}%</div>
-          <div>⚡ {state.energy}%</div>
-          <div>😄 {state.mood}%</div>
-          <div>🛁 {state.hygiene}%</div>
-        </div>
-        <div className="flex gap-x-4">
-          <div>⭐ Lv {state.level}</div>
-          <div>📈 XP: {state.xp}</div>
-          <div>
-            🕒 {getBlobbiClockHHMMSS(state) }
-            <span className="text-xs text-gray-500">
-              ({state.settings?.timeFactor ?? 1}×)
-            </span>
-          </div>
-          <div>
-            📆 Tag {state.blobbiDays}
-          </div>
-        </div>
+
+      {/* 🟦 Zeile 2: Fortschritt (Level, XP, Zeit, Tag) */}
+      <div className="flex gap-x-4">
+        <div>⭐ Lv {state.level}</div>
+        <div>📈 XP: {state.xp}</div>
+        <div>🕒 {hh}:{mm}:{ss} Uhr</div>
+        <div>📆 Tag {state.blobbiDays}</div>
       </div>
+
+      {/* 🟨 Zeile 3: Statuswerte */}
+      <div className="flex gap-x-4 mt-1">
+        <div>🍔 {state.hunger}%</div>
+        <div>⚡ {state.energy}%</div>
+        <div>😄 {state.mood}%</div>
+        <div>🛁 {state.hygiene}%</div>
+      </div>
+
+      {/* ⏩ Zeile 4: TimeFactor (nur sichtbar wenn >1) */}
+      {state.settings?.timeFactor && state.settings.timeFactor > 1 && (
+        <div className="flex items-center gap-x-2 text-xs text-gray-600 mt-1">
+          <span>⏩</span>
+          <span>Zeitraffer: {state.settings.timeFactor}×</span>
+        </div>
+      )}
     </div>
   );
 };

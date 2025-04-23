@@ -36,6 +36,10 @@ const MainScene = () => {
   // ⏳ Fortschrittswert der Tick-Animation (0–100)
   const [tickProgress, setTickProgress] = useState(0);
 
+  // 🕒 Blobbi-Uhrzeit (Stunden, Minuten, Sekunden)
+  // const { hh, mm, ss } = getBlobbiClock(state);
+
+
   /**
    * ⏱ Initiales Laden des Blobbi-Zustands beim Start der App.
    * Öffnet Menü, wenn Name noch nicht vergeben wurde.
@@ -181,7 +185,8 @@ const MainScene = () => {
         {/* Fortschrittsbalken */}
         <div className="h-1 bg-gray-200 w-full">
           <div
-            className="h-full bg-black transition-all duration-100 ease-linear"
+            className='h-full transition-all duration-100 ease-linear ${ 
+              ss < 20 ? "bg-blue-500 animate-pulse" : "bg-black"}'
             style={{ width: `${tickProgress}%` }}
           />
         </div>
