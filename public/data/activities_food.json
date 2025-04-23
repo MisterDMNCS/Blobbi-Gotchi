@@ -514,28 +514,10 @@
     ]
   },
 
-  "🥩": {
-    "title": "Steak",
-    "category": "food",
-    "requiredXpLevel": 20,
-    "effects": {
-      "hunger": 30,
-      "energy": 15,
-      "mood": 12,
-      "hygiene": -10,
-      "xp": 5
-    },
-    "descriptions": [
-      "{blobbiName} gönnt sich ein saftiges Steak!",
-      "{blobbiName} genießt sein Steak wie ein Profi!",
-      "Grillabend deluxe mit {blobbiName}!"
-    ]
-  },
-
   "🥚": {
     "title": "Ei",
     "category": "food",
-    "requiredXpLevel": 21,
+    "requiredXpLevel": 2,
     "effects": {
       "hunger": 10,
       "energy": 8,
@@ -553,7 +535,7 @@
   "🥒": {
     "title": "Gurke",
     "category": "food",
-    "requiredXpLevel": 22,
+    "requiredXpLevel": 21,
     "effects": {
       "hunger": 8,
       "energy": 5,
@@ -565,6 +547,24 @@
       "{blobbiName} snackt Gurke, schön erfrischend!",
       "Grüne Energie für {blobbiName}: Gurkenzeit!",
       "{blobbiName} knabbert frische Gurkenscheiben!"
+    ]
+  },
+
+  "🍋": {
+    "title": "Zitrone",
+    "category": "food",
+    "requiredXpLevel": 22,
+    "effects": {
+      "hunger": 5,
+      "energy": 5,
+      "mood": 3,
+      "hygiene": 2,
+      "xp": 2
+    },
+    "descriptions": [
+      "{blobbiName} macht Limonade aus Zitronen!",
+      "{blobbiName} ist sauer auf die Welt – aber mit Stil!",
+      "{blobbiName} genießt die Zitrone wie ein echter Genießer!"
     ]
   }
 
